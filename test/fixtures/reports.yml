@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  screenshot: MyString
+  logs: MyString
+  crash_logs: MyString
+  dumped_view: MyString
+
+two:
+  screenshot: MyString
+  logs: MyString
+  crash_logs: MyString
+  dumped_view: MyString

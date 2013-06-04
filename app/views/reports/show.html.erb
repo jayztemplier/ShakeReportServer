@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Screenshot:</b><br/>
+  <%= screenshot_tag(@report) %>
+</p>
+
+<p>
+  <b>Logs:</b><br/>
+  <%= simple_format h(@report.logs) %>
+</p>
+
+<p>
+  <b>Crash logs:</b><br/>
+  <%= simple_format h(@report.crash_logs) %>
+</p>
+
+<p>
+  <b>Dumped view:</b><br/>
+  <%= simple_format h(@report.dumped_view) %>
+</p>
+
+
+<%= link_to 'Edit', edit_report_path(@report) %> |
+<%= link_to 'Back', reports_path %>
