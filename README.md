@@ -13,8 +13,8 @@ https://github.com/jayztemplier/ShakeReport
 Clone the repository:
 `git clone git@github.com:jayztemplier/ShakeReportServer.git`
 
-Enter in the ShakeReport folder:
-`cd ShakeReport`
+Enter in the ShakeReportServer folder:
+`cd ShakeReportServer`
 
 Launch the rails app:
 `rails s`	
