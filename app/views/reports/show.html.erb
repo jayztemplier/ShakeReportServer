@@ -5,22 +5,22 @@
 
 <ul id="myTab" class="nav nav-tabs">
   <li class="active"><a href="#screenshot" data-toggle="tab">Screenshot</a></li>
+  <li><a href="#dumped-view" data-toggle="tab">Dumped View</a></li>
   <li><a href="#logs" data-toggle="tab">Logs</a></li>
   <li><a href="#crash" data-toggle="tab">Crash</a></li>
-  <li><a href="#dumped-view" data-toggle="tab">Dumped View</a></li>
 </ul>
 <div id="myTabContent" class="tab-content">
 	 <div class="tab-pane fade in active" id="screenshot">
 	 	 <p><%= screenshot_tag(@report) %></p>
+	 </div>
+	 <div class="tab-pane" id="dumped-view">
+	 	<p><%= simple_format h(@report.dumped_view) %></p>
 	 </div>
 	 <div class="tab-pane" id="logs">
 	 	<p><%= simple_format h(@report.logs) %></p>
 	 </div>
 	 <div class="tab-pane" id="crash">
 	 	<p><%= simple_format h(@report.crash_logs) %></p>
-	 </div>
-	 <div class="tab-pane" id="dumped-view">
-	 	<p><%= simple_format h(@report.dumped_view) %></p>
 	 </div>
 </div>
 
