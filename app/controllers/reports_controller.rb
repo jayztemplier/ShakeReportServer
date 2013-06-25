@@ -1,4 +1,6 @@
 class ReportsController < ApplicationController
+
+  before_filter :authenticate, except: [:create]
   # GET /reports
   # GET /reports.json
   def index
@@ -84,4 +86,14 @@ class ReportsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+  protected
+
+  def authenticate
+    authenticate_or_request_with_http_basic do |username, password|
+      username == ENV['SR_USERNAME'] && password == ENV['SR_PASSWORD']
+    end
+  end
+  
 end
