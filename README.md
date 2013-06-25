@@ -16,11 +16,18 @@ Clone the repository:
 Enter in the ShakeReportServer folder:
 `cd ShakeReportServer`
 
+Run the bundle command:
+`bundle install`
+
+Set up a user:
+`export SR_USERNAME="jayztemplier"`
+`export SR_PASSWORD="your_password"`
+
 Launch the rails app:
 `rails s`	
 
 Check that it's running by visiting `http://localhost:3000`
-
+A prompt will ask you your username and password. Use the logins you just created.
 # Features
 
 * List of the reports sent from the devices
