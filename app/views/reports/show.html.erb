@@ -1,25 +1,32 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Screenshot:</b><br/>
-  <%= screenshot_tag(@report) %>
-</p>
-
-<p>
-  <b>Logs:</b><br/>
-  <%= simple_format h(@report.logs) %>
-</p>
-
-<p>
-  <b>Crash logs:</b><br/>
-  <%= simple_format h(@report.crash_logs) %>
-</p>
-
-<p>
-  <b>Dumped view:</b><br/>
-  <%= simple_format h(@report.dumped_view) %>
-</p>
-
-
 <%= link_to 'Edit', edit_report_path(@report) %> |
 <%= link_to 'Back', reports_path %>
+
+<p id="notice"><%= notice %></p>
+
+<ul id="myTab" class="nav nav-tabs">
+  <li class="active"><a href="#screenshot" data-toggle="tab">Screenshot</a></li>
+  <li><a href="#logs" data-toggle="tab">Logs</a></li>
+  <li><a href="#crash" data-toggle="tab">Crash</a></li>
+  <li><a href="#dumped-view" data-toggle="tab">Dumped View</a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+	 <div class="tab-pane fade in active" id="screenshot">
+	 	 <p><%= screenshot_tag(@report) %></p>
+	 </div>
+	 <div class="tab-pane" id="logs">
+	 	<p><%= simple_format h(@report.logs) %></p>
+	 </div>
+	 <div class="tab-pane" id="crash">
+	 	<p><%= simple_format h(@report.crash_logs) %></p>
+	 </div>
+	 <div class="tab-pane" id="dumped-view">
+	 	<p><%= simple_format h(@report.dumped_view) %></p>
+	 </div>
+</div>
+
+
+<script>
+  $(function () {
+    $('#myTab a:last').tab('show');
+  })
+</script>
