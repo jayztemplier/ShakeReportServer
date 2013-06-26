@@ -1,6 +1,7 @@
 class ReportsController < ApplicationController
 
-  before_filter :authenticate, except: [:create]
+  before_filter :authenticate
+  
   # GET /reports
   # GET /reports.json
   def index
@@ -92,7 +93,11 @@ class ReportsController < ApplicationController
 
   def authenticate
     authenticate_or_request_with_http_basic do |username, password|
-      username == ENV['SR_USERNAME'] && password == ENV['SR_PASSWORD']
+      if ENV['SR_USERNAME'] && ENV['SR_PASSWORD']
+        username == ENV['SR_USERNAME'] && password == ENV['SR_PASSWORD']
+      else
+        true 
+      end
     end
   end
   

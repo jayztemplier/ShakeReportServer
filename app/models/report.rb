@@ -1,7 +1,9 @@
 class Report
   include Mongoid::Document
   include Mongoid::Timestamps
-
+  
+  default_scope order_by(:created_at => :desc)
+  
   STATUS = {new: 0, archived: 1}
   field :screenshot, type: String
   field :logs, type: String

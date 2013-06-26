@@ -22,6 +22,7 @@ Run the bundle command:
 Set up a user:
 `export SR_USERNAME="jayztemplier"`
 `export SR_PASSWORD="your_password"`
+If you don't setup a user, by default the website won't be protected.
 
 Launch the rails app:
 `rails s`	
