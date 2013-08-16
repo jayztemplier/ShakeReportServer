@@ -5,11 +5,14 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    if params[:archived]
+    if params[:scope] && params[:scope].to_sym == :archived
       @reports = Report.archived
+    elsif params[:scope] && params[:scope].to_sym == :ready_to_test
+      @reports = Report.ready_to_test
     else
       @reports = Report.opened
     end
+  
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @reports }

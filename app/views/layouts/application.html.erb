@@ -60,7 +60,8 @@
             <ul class="nav nav-list">
               <li class="nav-header">Filters</li>
               <li><%= link_to "Open", reports_url  %></li>
-              <li><%= link_to "Archived", reports_url(archived: true)  %></li>
+              <li><%= link_to "Ready to test", reports_url(scope: :ready_to_test)  %></li>
+              <li><%= link_to "Archived", reports_url(scope: :archived)  %></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->

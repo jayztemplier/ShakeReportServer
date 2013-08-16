@@ -4,7 +4,7 @@ class Report
   
   default_scope order_by(:created_at => :desc)
   
-  STATUS = {new: 0, ready_to_test: 1, archived: 1}
+  STATUS = {new: 0, ready_to_test: 1, archived: 2}
   field :screenshot, type: String
   field :logs, type: String
   field :crash_logs, type: String
