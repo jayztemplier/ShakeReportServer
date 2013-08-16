@@ -4,7 +4,9 @@
 <p id="notice"><%= notice %></p>
 
 <p> <span class="label label-info"><%=status_title(@report.status)%></span> 
-	<%= link_to status_title(@report.status + 1), report_update_status_path(@report), method: :put, class: "btn btn-mini btn-success" %>
+	<% if status_title(@report.status + 1) %>
+		<%= link_to status_title(@report.status + 1), report_update_status_path(@report), method: :put, class: "btn btn-mini btn-success" %>
+	<% end %>
 </p>
 
 <ul id="myTab" class="nav nav-tabs">

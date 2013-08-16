@@ -8,7 +8,7 @@ module ReportsHelper
     if Report::STATUS.keys.size > status_code
       "#{Report::STATUS.keys[status_code]}".gsub('_', ' ').capitalize
     else 
-      "unknown status".capitalize
+      nil
     end
   end
 end
