@@ -3,6 +3,7 @@
 
 <p id="notice"><%= notice %></p>
 
+<h3><%= @report.title %></h3>
 <p> <span class="label label-info"><%=status_title(@report.status)%></span> 
 	<% if status_title(@report.status + 1) %>
 		<%= link_to status_title(@report.status + 1), report_update_status_path(@report), method: :put, class: "btn btn-mini btn-success" %>
@@ -20,14 +21,17 @@
 	 <div class="tab-pane fade in active" id="screenshot">
 	 	 <p><%= screenshot_tag(@report) %></p>
 	 </div>
-	 <div class="tab-pane" id="dumped-view">
-	 	<p><%= simple_format h(@report.dumped_view) %></p>
-	 </div>
+	<div class="tab-pane fade in active" id="message">
+	 	<p><%= @report.message %></p>
+	</div>
 	 <div class="tab-pane" id="logs">
 	 	<p><%= simple_format h(@report.logs) %></p>
 	 </div>
 	 <div class="tab-pane" id="crash">
 	 	<p><%= simple_format h(@report.crash_logs) %></p>
+	 </div>
+	 <div class="tab-pane" id="dumped-view">
+	 	<p><%= simple_format h(@report.dumped_view) %></p>
 	 </div>
 </div>
 
