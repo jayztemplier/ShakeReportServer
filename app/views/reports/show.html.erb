@@ -3,12 +3,17 @@
 
 <p id="notice"><%= notice %></p>
 
+<p> <span class="label label-info"><%=status_title(@report.status)%></span> 
+	<%= link_to status_title(@report.status + 1), report_update_status_path(@report), method: :put, class: "btn" %>
+</p>
+
 <ul id="myTab" class="nav nav-tabs">
   <li class="active"><a href="#screenshot" data-toggle="tab">Screenshot</a></li>
   <li><a href="#dumped-view" data-toggle="tab">Dumped View</a></li>
   <li><a href="#logs" data-toggle="tab">Logs</a></li>
   <li><a href="#crash" data-toggle="tab">Crash</a></li>
 </ul>
+
 <div id="myTabContent" class="tab-content">
 	 <div class="tab-pane fade in active" id="screenshot">
 	 	 <p><%= screenshot_tag(@report) %></p>

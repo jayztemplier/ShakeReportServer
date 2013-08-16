@@ -46,7 +46,6 @@ class ReportsController < ApplicationController
   # POST /reports
   # POST /reports.json
   def create
-    puts "========REPORT: #{params[:report]}"
     @report = Report.new(params[:report])
 
     respond_to do |format|
@@ -60,6 +59,24 @@ class ReportsController < ApplicationController
     end
   end
 
+  # PUT /reports/1/update_status
+  # PUT /reports/1/update_status.json
+  def update_status
+    @report = Report.find(params[:report_id])
+    new_status = @report.status+1
+    
+    respond_to do |format|
+      if @report.update_attributes(status: new_status)
+        format.html { redirect_to @report, notice: 'Report was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @report.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  
   # PUT /reports/1
   # PUT /reports/1.json
   def update

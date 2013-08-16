@@ -4,7 +4,7 @@ class Report
   
   default_scope order_by(:created_at => :desc)
   
-  STATUS = {new: 0, archived: 1}
+  STATUS = {new: 0, ready_to_test: 1, archived: 1}
   field :screenshot, type: String
   field :logs, type: String
   field :crash_logs, type: String
@@ -12,5 +12,6 @@ class Report
   field :status, type: Integer, default: STATUS[:new]
 
   scope :opened, where(:status => STATUS[:new])
+  scope :ready_to_test, where(:status => STATUS[:ready_to_test])
   scope :archived, where(:status => STATUS[:archived])
 end
