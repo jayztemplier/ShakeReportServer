@@ -1,17 +1,22 @@
 <h1>Listing reports</h1>
 
-<table>
-  <tr>
-    <th>Created At</th>
-    <th></th>
-  </tr>
-
-<% @reports.each do |report| %>
-  <tr>
-    <td><%= report.title %></td>
-    <td><%= link_to 'Show', report %></td>
-  </tr>
-<% end %>
+<table class="table table-bordered table-hover">
+	<thead>
+  		<tr>
+  		  <th>Title</th>
+	  	  <th>Created at</th>
+  		  <th></th>
+  		</tr>
+	</thead>
+	<tbody>
+		<% @reports.each do |report| %>
+		  <tr>
+		    <td><%= report.title || "No title" %></td>
+			<td><%= report.created_at.to_formatted_s(:short) %></td>
+		    <td><%= link_to 'Show', report, class: "btn btn-primary" %></td>
+		  </tr>
+		<% end %>	
+	</tbody>
 </table>
 
 <br />

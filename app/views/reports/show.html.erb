@@ -1,12 +1,10 @@
-<%= link_to 'Edit', edit_report_path(@report) %> |
-<%= link_to 'Back', reports_path %>
-
 <p id="notice"><%= notice %></p>
 
 <h3><%= @report.title %></h3>
-<p> <span class="label label-info"><%=status_title(@report.status)%></span> 
+<p> 
+	<span class="label label-info"><%=status_title(@report.status)%></span> 
 	<% if status_title(@report.status + 1) %>
-		<%= link_to status_title(@report.status + 1), report_update_status_path(@report), method: :put, class: "btn btn-mini btn-success" %>
+		<%= link_to status_title(@report.status + 1), report_update_status_path(@report), method: :put, class: "btn btn-success btn-mini"%>
 	<% end %>
 </p>
 <p>
@@ -24,13 +22,13 @@
 	 <div class="tab-pane fade in active" id="screenshot">
 	 	 <p><%= screenshot_tag(@report) %></p>
 	 </div>
-	 <div class="tab-pane" id="logs">
+	 <div class="tab-pane fade" id="logs">
 	 	<p><%= simple_format h(@report.logs) %></p>
 	 </div>
-	 <div class="tab-pane" id="crash">
+	 <div class="tab-pane fade" id="crash">
 	 	<p><%= simple_format h(@report.crash_logs) %></p>
 	 </div>
-	 <div class="tab-pane" id="dumped-view">
+	 <div class="tab-pane fade" id="dumped-view">
 	 	<p><%= simple_format h(@report.dumped_view) %></p>
 	 </div>
 </div>
@@ -38,6 +36,6 @@
 
 <script>
   $(function () {
-    $('#myTab a:last').tab('show');
+    $('#myTab a:first').tab('show');
   })
 </script>
