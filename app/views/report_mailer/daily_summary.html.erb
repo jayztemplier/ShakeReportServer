@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Shake Report daily summary of the <%= @date_string %></h1>
+
+    <p>
+		<% if @reports && @reports.size %>
+			<p>List of report:<p>
+				<ul>
+				<% @reports.each do |report| %>
+				<li><%= report.title %>: <%= link_to report_url(report), report %></li>
+				<% end %>
+			</ul>
+			
+		<% else %>
+			No new report
+
+		<% end%>
+    </p>
+
+    <p>Thanks for using Shake Report and have a great day!</p>
+  </body>
+</html>

@@ -3,4 +3,5 @@ ShakeReport::Application.routes.draw do
   resources :reports do |report|
     put :update_status
   end
+  resources :alert_mails, only: [:index, :create, :destroy]
 end

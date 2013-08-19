@@ -1,0 +1,15 @@
+Shake Report daily summary of the <%= @date_string %>
+===============================================
+ 
+<% if @reports && @reports.size %>
+	List of report:
+	<% @reports.each do |report| %>
+	<%= report.title %>: <%= link_to report_url(report), report %>
+	<% end %>
+
+<% else %>
+	No new report
+
+<% end%>
+
+Thanks for using Shake Report and have a great day!

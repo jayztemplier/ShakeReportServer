@@ -1,0 +1,35 @@
+<h1>Mailing list</h1>
+
+<div class="new_mail_form">
+	<%= simple_form_for(AlertMail.new, html: {class: "form-inline"}) do |f| %>
+	  <%= f.error_notification %>
+	
+	  <div class="form-group">
+	    <%= f.input :email, label: "" %>
+	  </div>
+	
+	  <div class="form-actions">
+	    <%= f.button :submit, class: "btn btn-primary"%>
+	  </div>
+	<% end %>
+</div> <!-- new_mail_form -->
+
+<div class="mails">
+	<table class="table table-bordered table-hover">
+		<thead>
+	  		<tr>
+	  		  <th>Email</th>
+	  		  <th></th>
+	  		</tr>
+		</thead>
+		<tbody>
+			<% @mails.each do |mail| %>
+			  <tr>
+			    <td><%= mail.email %></td>
+			    <td><%= link_to 'Delete', mail, class: "btn btn-danger", method: :delete %></td>
+			  </tr>
+			<% end %>	
+		</tbody>
+	</table>
+	<br />
+</div> <!-- mails -->

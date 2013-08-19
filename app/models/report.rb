@@ -16,4 +16,6 @@ class Report
   scope :opened, where(:status => STATUS[:new])
   scope :ready_to_test, where(:status => STATUS[:ready_to_test])
   scope :archived, where(:status => STATUS[:archived])
+  scope :today, where(:created_at.gte => Date.today)
+
 end
