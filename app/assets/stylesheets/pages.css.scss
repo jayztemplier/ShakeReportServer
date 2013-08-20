@@ -1,7 +1,20 @@
 #home_page {
+	background-color: #63BAFD;
+	
 	.container {
 	  padding-left: 15px;
 	  padding-right: 15px;
+	}
+	
+	#beta_label {
+		margin-bottom: 0px;
+		text-align: right;
+	}
+	
+	#page_title {
+		margin-top: 0px;
+		color: white;
+		font-size: 65px;
 	}
 	
 	h4 {
