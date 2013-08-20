@@ -116,6 +116,10 @@ git push heroku master</pre>
 SRReporter *reporter = [SRReporter reporter];
 NSURL *url = [NSURL URLWithString:@"http://my_app_name.herokuapp.com/reports.json"];
 [reporter startListenerConnectedToBackendURL:url];</pre>
+					<p>You now have to specify the credentials you set up for the backend</p>
+					<pre>
+[reporter setUsername:@"jayztemplier"];
+[reporter setPassword:@"mypassword"];</pre>
 					<p>You are ready to go!</p>
 				</div>
 				<div class="row">
