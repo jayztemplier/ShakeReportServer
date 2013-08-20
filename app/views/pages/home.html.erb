@@ -103,9 +103,20 @@ heroku config:set SR_USERNAME=myusername
 heroku config:set SR_PASSWORD=mypassword</pre>
 					<p>Commit and deploy the code</p>
 					<pre>
-git .
+git add .
 git commit -a -m "my first commit"
 git push heroku master</pre>
+					<p>Now your application should be deployed, and accessible at my_app_name.herokuapp.com</p>
+				</div>
+				<div class="row">
+					<h4>iOS installation</h4>
+					<p>Follow the instructions on the "By email" side (column on the left)</p>
+					<p>Replace the code on the <i>Application Delegate</i> by:</p>
+					<pre>
+SRReporter *reporter = [SRReporter reporter];
+NSURL *url = [NSURL URLWithString:@"http://my_app_name.herokuapp.com/reports.json"];
+[reporter startListenerConnectedToBackendURL:url];</pre>
+					<p>You are ready to go!</p>
 				</div>
 			</div>
 		</div>
