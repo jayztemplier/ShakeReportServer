@@ -1,43 +1,61 @@
 #home_page {
-	background-color: #63BAFD;
-	
-	.container {
-	  padding-left: 15px;
-	  padding-right: 15px;
+	background-color: #004A83;
+	p {
+		color: #bebebe;
+		font-size: 1.25em;
+		text-align:justify;
+		text-justify:inter-word;
+		
+		&.italic {
+			font-style: italic;
+		}
 	}
 	
-	#beta_label {
-		margin-bottom: 0px;
-		text-align: right;
-	}
-	
-	#page_title {
-		margin-top: 0px;
+	h1, h3, h4{
 		color: white;
-		font-size: 65px;
+	} 
+	
+	pre {
+		background-color: #90A8C7;
+		border: 1px solid #949DAA;
 	}
 	
 	h4 {
 	  margin-top: 25px;
 	}
+	
 	.row {
 	  margin-bottom: 20px;
-	}
-	.row .row {
-	  margin-top: 10px;
-	  margin-bottom: 0;
-	}
-	[class*="col-"] {
-	  padding-top: 15px;
-	  padding-bottom: 15px;
-	  background-color: #eee;
-	  border: 1px solid #ddd;
-	  background-color: rgba(86,61,124,.15);
-	  border: 1px solid rgba(86,61,124,.2);
 	}
 	
 	hr {
 	  margin-top: 40px;
 	  margin-bottom: 40px;
 	}
+	
+	.installation_column {
+		padding: 0px 44px;
+	}
+	
+	.container {
+	  padding-left: 15px;
+	  padding-right: 15px;
+	}
+	
+	#header {
+		#beta_label {
+			margin-bottom: -20px;
+			text-align: right;
+			color: rgb(201, 14, 14);
+			text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+		}
+	
+		#page_title {
+			color: white;
+			font-size: 65px;
+			text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+		}
+	}
+	
+	
 }
