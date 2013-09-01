@@ -5,6 +5,7 @@ https://github.com/jayztemplier/ShakeReport
 
 The Shake Reporter backend has been written in Ruby, using Ruby on Rails. By default, it uses Sendgrid (for the production environment). Originally, it's been written to be super easy to install on Heroku. The installation process explains how to deploy your own instance of the backend on Heroku.
 
+<a href="http://shakereport.com/">Go to our website to get more information</a>
 
 
 #Shake Report?
