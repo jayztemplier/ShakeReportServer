@@ -29,7 +29,7 @@
 	 	<p><%= simple_format h(@report.crash_logs) %></p>
 	 </div>
 	 <div class="tab-pane fade" id="dumped-view">
-	 	<p><%= simple_format h(@report.dumped_view) %></p>
+	 	<pre class=""><%= simple_format dumped_view_to_html(@report.dumped_view), {style: "width=300%"} %></pre>
 	 </div>
 </div>
 

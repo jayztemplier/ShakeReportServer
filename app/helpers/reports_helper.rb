@@ -11,4 +11,14 @@ module ReportsHelper
       nil
     end
   end
+  
+  def dumped_view_to_html(dumped_view)
+    if dumped_view
+      safe_string = h(dumped_view)
+      space = "&nbsp;&nbsp;"
+      to_html = safe_string.gsub(/\|/, space)
+    end
+    to_html || dumped_view
+  end
+  
 end
