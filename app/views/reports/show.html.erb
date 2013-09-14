@@ -23,7 +23,7 @@
 	 	 <p><%= screenshot_tag(@report) %></p>
 	 </div>
 	 <div class="tab-pane fade" id="logs">
-	 	<p><%= simple_format h(@report.logs) %></p>
+	 	<p><%= raw(logs_to_html(@report.logs)) %></p>
 	 </div>
 	 <div class="tab-pane fade" id="crash">
 	 	<p><%= simple_format h(@report.crash_logs) %></p>

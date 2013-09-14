@@ -8,3 +8,15 @@
     white-space: pre;
 	min-height: 500px;
 }
+
+.log_line {
+	background-color: rgb(255, 248, 210);
+	margin: 1px 0px;
+	&.odd {
+		background-color:rgb(230, 230, 230);
+	}
+	&:hover {
+		background-color: rgb(73, 73, 73);
+		color: white;
+	}
+}
