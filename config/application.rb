@@ -64,5 +64,8 @@ module ShakeReport
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    Paperclip::Attachment.default_options[:path] = ":rails_env/:class/attachment/:filename.:extension"
+    
   end
 end

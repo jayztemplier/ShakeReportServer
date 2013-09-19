@@ -1,4 +1,4 @@
-<%= simple_form_for(@report) do |f| %>
+<%= simple_form_for @report, :html => {:multipart => true } do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -6,6 +6,7 @@
     <%= f.input :logs, as: :text  %>
     <%= f.input :crash_logs, as: :text  %>
     <%= f.input :dumped_view, as: :text  %>
+	<%= f.file_field :screen_capture %>
   </div>
 
   <div class="form-actions">
