@@ -11,6 +11,10 @@
 	<%= @report.message %>
 </p>
 
+<p>
+	<%= @report.screen_capture.url if @report.screen_capture%>
+<p>
+
 <ul id="myTab" class="nav nav-tabs">
   <li class="active"><a href="#screenshot" data-toggle="tab">Screenshot</a></li>
   <li><a href="#dumped-view" data-toggle="tab">Dumped View</a></li>
