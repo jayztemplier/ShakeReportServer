@@ -34,6 +34,9 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
+    bson (1.9.2)
+    bson_ext (1.9.2)
+      bson (~> 1.9.2)
     builder (3.0.4)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -81,6 +84,9 @@ GEM
       tzinfo (~> 0.3.22)
     mongoid-paperclip (0.0.8)
       paperclip (>= 2.3.6)
+    mongoid_commentable (0.0.6)
+      bson_ext (>= 1.3)
+      mongoid (>= 2.2)
     moped (1.5.0)
     multi_json (1.7.9)
     multi_xml (0.5.5)
@@ -157,6 +163,7 @@ DEPENDENCIES
   less-rails-bootstrap
   mongoid (~> 3.0.0)
   mongoid-paperclip
+  mongoid_commentable
   newrelic_rpm
   rails (= 3.2.8)
   sass-rails (~> 3.2.3)

@@ -2,6 +2,8 @@ class Report
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Paperclip
+  include Mongoid::Commentable
+  
 
   default_scope order_by(:created_at => :desc)
   

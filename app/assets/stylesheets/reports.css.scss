@@ -2,6 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+.tab-pane {
+  padding-top: 20px;  
+}
+
 #dumped-view pre {
     overflow-x: auto;
     overflow-wrap: normal;
@@ -19,4 +24,23 @@
 		background-color: rgb(73, 73, 73);
 		color: white;
 	}
+}
+
+#comments {
+  .comment {
+    margin: 10px;
+    
+    p.author {
+//      font-style: italic;
+      font-size: 12px;
+    }
+    
+    p.content {
+      font-size: 15px;
+    }
+    
+    a.reply {
+      font-size: 12px;
+    }
+  }
 }
