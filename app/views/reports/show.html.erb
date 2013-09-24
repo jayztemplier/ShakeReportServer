@@ -1,40 +1,51 @@
 <p id="notice"><%= notice %></p>
 
-<h3><%= @report.title %></h3>
+<h3><span class="label label-info"><%=status_title(@report.status)%></span> <%= @report.title %>  </h3>
 <p> 
-	<span class="label label-info"><%=status_title(@report.status)%></span> 
+	
 	<% if status_title(@report.status + 1) %>
 		<%= link_to status_title(@report.status + 1), report_update_status_path(@report), method: :put, class: "btn btn-success btn-mini"%>
 	<% end %>
 </p>
-<p>
+<p class=well>
 	<%= @report.message %>
 </p>
 
-<% if @report.screen_capture_file_name %>
-<video width="320" height="480" controls>
-  <source src="<%= @report.screen_capture.url %>" type="video/mp4">
-</video>
-<a href="<%= @report.screen_capture.url %>">Download</a>
-<% end %>
-
 <ul id="myTab" class="nav nav-tabs">
-  <li class="active"><a href="#screenshot" data-toggle="tab">Screenshot</a></li>
+  <% if @report.screen_capture_file_name %>
+    <li class="active"><a href="#video" data-toggle="tab">Video</a></li>
+    <li><a href="#screenshot" data-toggle="tab">Screenshot</a></li>
+  <% else %>
+    <li class="active"><a href="#screenshot" data-toggle="tab">Screenshot</a></li>
+  <% end %>
   <li><a href="#dumped-view" data-toggle="tab">Dumped View</a></li>
   <li><a href="#logs" data-toggle="tab">Logs</a></li>
+  <% if @report.crash_logs %>
   <li><a href="#crash" data-toggle="tab">Crash</a></li>
+  <% end %>
 </ul>
 
 <div id="myTabContent" class="tab-content">
-	 <div class="tab-pane fade in active" id="screenshot">
+  <% if @report.screen_capture_file_name %>
+	 <div class="tab-pane fade in active" id="video">
+     <p><a href="<%= @report.screen_capture.url %>">Download</a></p>
+     <video width="320" height="480" controls>
+       <source src="<%= @report.screen_capture.url %>" type="video/mp4">
+     </video>
+	 </div>
+   <% end %>
+   
+	 <div class="tab-pane fade" id="screenshot">
 	 	 <p><%= screenshot_tag(@report) %></p>
 	 </div>
 	 <div class="tab-pane fade" id="logs">
 	 	<p><%= raw(logs_to_html(@report.logs)) %></p>
 	 </div>
-	 <div class="tab-pane fade" id="crash">
-	 	<p><%= simple_format h(@report.crash_logs) %></p>
-	 </div>
+   <% if @report.crash_logs %>
+	   <div class="tab-pane fade" id="crash">
+	 	   <p><%= simple_format h(@report.crash_logs) %></p>
+	   </div>
+   <% end %>
 	 <div class="tab-pane fade" id="dumped-view">
 	 	<pre class=""><%= simple_format dumped_view_to_html(@report.dumped_view), {style: "width=300%"} %></pre>
 	 </div>
