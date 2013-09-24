@@ -11,9 +11,12 @@
 	<%= @report.message %>
 </p>
 
-<p>
-	<%= @report.screen_capture.url if @report.screen_capture%>
-<p>
+<% if @report.screen_capture_file_name.nil? %>
+<video width="320" height="480" controls>
+  <source src="<%= @report.screen_capture.url %>" type="video/mp4">
+</video>
+<a href="<%= @report.screen_capture.url %>">Download</a>
+<% end %>
 
 <ul id="myTab" class="nav nav-tabs">
   <li class="active"><a href="#screenshot" data-toggle="tab">Screenshot</a></li>
