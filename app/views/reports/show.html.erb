@@ -11,8 +11,7 @@
 	<%= @report.message %>
 </p>
 
-<p><%= @report.screen_capture.url %></p>
-<% if @report.screen_capture_file_name.nil? %>
+<% if @report.screen_capture_file_name %>
 <video width="320" height="480" controls>
   <source src="<%= @report.screen_capture.url %>" type="video/mp4">
 </video>
