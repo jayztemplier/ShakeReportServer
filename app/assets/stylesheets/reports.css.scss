@@ -2,6 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#reports {
+  h1 {
+    text-align: center;
+    font-size: 30px;
+  }
+}
 
 .tab-pane {
   padding-top: 20px;  

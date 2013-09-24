@@ -5,9 +5,10 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    if params[:scope] && params[:scope].to_sym == :archived
+    @status = params[:scope] ? params[:scope].to_sym : :open
+    if @status == :archived
       @reports = Report.archived
-    elsif params[:scope] && params[:scope].to_sym == :ready_to_test
+    elsif @status == :ready_to_test
       @reports = Report.ready_to_test
     else
       @reports = Report.opened

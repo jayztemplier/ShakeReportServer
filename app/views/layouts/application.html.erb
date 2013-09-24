@@ -37,38 +37,37 @@
     <%= javascript_include_tag "application" %>
   </head>
   <body>
-
-    <div class="navbar navbar-static-top">
+    <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
       <div class="container">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="<%= root_url %>">Shake Report</a>
-        <div class="nav-collapse collapse navbar-responsive-collapse">
-          <ul class="nav navbar-nav">
-             <li><%= link_to "Reports", reports_url  %></li>
-	         <li><%= link_to "Mailing", alert_mails_url  %></li>
-          </ul>
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="<%= root_url %>" class="navbar-brand">Shake Report</a>
         </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><%= link_to "Open", reports_url  %></li>
+                      <li><%= link_to "Ready to test", reports_url(scope: :ready_to_test)  %></li>
+                      <li><%= link_to "Archived", reports_url(scope: :archived)  %></li>
+                    </ul>
+                  </li>
+            <li><%= link_to "Mailing", alert_mails_url  %></li>
+          </ul>
+        </nav>
       </div>
-    </div>
+    </header>
 
 	<div class="bs-header" id="content">
     <div class="container">
       <div class="row">
-        <div class="col-lg-3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Filters</li>
-              <li><%= link_to "Open", reports_url  %></li>
-              <li><%= link_to "Ready to test", reports_url(scope: :ready_to_test)  %></li>
-              <li><%= link_to "Archived", reports_url(scope: :archived)  %></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-	    <div class="col-lg-9">
+	    <div class="col-lg-12">
 	      <%= yield %>
 	    </div>
       </div><!--/row-->

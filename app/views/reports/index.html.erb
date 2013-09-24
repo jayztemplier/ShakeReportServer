@@ -1,22 +1,23 @@
-<h1>Listing reports</h1>
 
-<table class="table table-bordered table-hover">
-	<thead>
-  		<tr>
-  		  <th>Title</th>
-	  	  <th>Created at</th>
-  		  <th></th>
-  		</tr>
-	</thead>
-	<tbody>
-		<% @reports.each do |report| %>
-		  <tr>
-		    <td><%= report.title || "No title" %></td>
-			<td><%= report.created_at.to_formatted_s(:short) %></td>
-		    <td><%= link_to 'Show', report, class: "btn btn-primary" %></td>
-		  </tr>
-		<% end %>	
-	</tbody>
-</table>
+<div id="reports">
+  <h1><%= @status.to_s.gsub('_', ' ').capitalize %> reports</h1>
 
-<br />
+  <table class="table table-bordered table-hover">
+  	<thead>
+    		<tr>
+    		  <th>Title</th>
+  	  	  <th>Created at</th>
+    		  <th></th>
+    		</tr>
+  	</thead>
+  	<tbody>
+  		<% @reports.each do |report| %>
+  		  <tr>
+  		    <td><%= report.title || "No title" %></td>
+  			<td><%= report.created_at.to_formatted_s(:short) %></td>
+  		    <td><%= link_to 'Show', report, class: "btn btn-primary" %></td>
+  		  </tr>
+  		<% end %>	
+  	</tbody>
+  </table>
+</div>
