@@ -13,7 +13,7 @@
 	<h3><%= @report.title %></h3>  
 	<% if @report.status > Report::STATUS[:available_on_next_build]%>
 	<p class="fix_version">
-		Fix version: <%= @report.fix_version %>
+		Fix version: <%= @report.fix_version || "N/A" %>
 	</p>
 	<% end %>
 </div>
