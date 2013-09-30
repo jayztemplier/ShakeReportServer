@@ -7,7 +7,7 @@ class Report
 
   default_scope order_by(:created_at => :desc)
   
-  STATUS = {new: 0, ready_to_test: 1, archived: 2}
+  STATUS = {new: 0, available_on_next_build: 1 ,ready_to_test: 2, archived: 3}
   field :title, type: String
   field :message, type: String
   field :screenshot, type: String
@@ -18,6 +18,7 @@ class Report
   has_mongoid_attached_file :screen_capture
   
   scope :opened, where(:status => STATUS[:new])
+  scope :available_on_next_build, where(:status => STATUS[:available_on_next_build])
   scope :ready_to_test, where(:status => STATUS[:ready_to_test])
   scope :archived, where(:status => STATUS[:archived])
   scope :today, where(:created_at.gte => Date.today)

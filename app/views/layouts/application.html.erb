@@ -7,6 +7,9 @@
     <title><%= content_for?(:title) ? yield(:title) : "ShakeReport" %></title>
     <%= csrf_meta_tags %>
 
+
+	<link href="http://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+	
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
       <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
@@ -54,6 +57,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                       <li><%= link_to "Open", reports_url  %></li>
+                      <li><%= link_to "On next build", reports_url(scope: :available_on_next_build)  %></li>
                       <li><%= link_to "Ready to test", reports_url(scope: :ready_to_test)  %></li>
                       <li><%= link_to "Archived", reports_url(scope: :archived)  %></li>
                     </ul>

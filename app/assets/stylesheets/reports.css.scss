@@ -9,6 +9,25 @@
   }
 }
 
+.status_box {
+	p {
+		margin: 0;
+		text-align: center;
+		font-size: 11px;
+		color: rgb(153, 153, 153);
+	}
+}
+
+.report_header {
+	padding: 0px 15px; 
+	padding-top: 15px;
+	
+	h3 {
+		display: inline;
+		margin-left: 5px;
+	}
+}
+
 .tab-pane {
   padding-top: 20px;  
 }
@@ -30,6 +49,10 @@
 		background-color: rgb(73, 73, 73);
 		color: white;
 	}
+}
+
+.message {
+	margin-top: 30px;
 }
 
 #comments {

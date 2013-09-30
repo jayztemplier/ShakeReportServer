@@ -1,13 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<h3><span class="label label-info"><%=status_title(@report.status)%></span> <%= @report.title %>  </h3>
-<p> 
-	
-	<% if status_title(@report.status + 1) %>
-		<%= link_to status_title(@report.status + 1), report_update_status_path(@report), method: :put, class: "btn btn-success btn-mini"%>
-	<% end %>
-</p>
-<p class=well>
+
+<% if status_title(@report.status + 1) %>
+<span class="pull-right status_box">
+	<p>Update status</p>
+	<%= link_to status_title(@report.status + 1), report_update_status_path(@report), method: :put, class: "btn btn-success btn-mini"%>
+</span>
+<% end %>
+
+<div class="row report_header">
+	<span class="label label-info"><%=status_title(@report.status)%></span> 
+	<h3><%= @report.title %></h3>  
+</div>
+
+
+
+<p class="well message">
 	<%= @report.message %>
 </p>
 
@@ -23,7 +31,7 @@
   <% if @report.crash_logs %>
   <li><a href="#crash" data-toggle="tab">Crash</a></li>
   <% end %>
-  <li><a href="#comments" data-toggle="tab">Comments</a></li>
+  <li><a href="#comments">Comments</a></li>
 </ul>
 
 <div id="myTabContent" class="tab-content">
@@ -50,26 +58,22 @@
 	 <div class="tab-pane fade" id="dumped-view">
 	 	<pre class=""><%= simple_format dumped_view_to_html(@report.dumped_view), {style: "width=300%"} %></pre>
 	 </div>
-   
-	 <div class="tab-pane fade" id="comments">
-     <%= link_to "Leave a comment", "#new_comment", class: "btn btn-primary" %>
-     <% @report.comments_list.each do |comment| %>
-     <div class="well comment level_<%= comment.level %>" style="margin-left: <%= comment.level * 20 %>px">
-       <p class="author"> <%= comment.author %> <%= comment.level > 1 ? "replied:" : "commented:" %></p>
-       <p class="content"> <%= comment.text %> </p>
-       <%= link_to "Reply", new_report_comment_path(:report_id => @report.id.to_s, :parent => comment.id.to_s), class: "reply" %>
-     </div>
-     <% end %>
-     
-     
-     <div id="new_comment">
-       <%= render :partial => '/comments/form', :locals => {:model => @report, :comment => Comment.new}%>
-     </div>
-   
-   </div>
-   
 </div>
 
+<hr/>
+ <div class="" id="comments">
+  <%= link_to "Leave a comment", "#new_comment", class: "btn btn-primary" %>
+  <% @report.comments_list.each do |comment| %>
+  <div class="well comment level_<%= comment.level %>" style="margin-left: <%= comment.level * 20 %>px">
+    <p class="author"> <%= comment.author %> <%= comment.level > 1 ? "replied:" : "commented:" %></p>
+    <p class="content"> <%= comment.text %> </p>
+    <%= link_to "Reply", new_report_comment_path(:report_id => @report.id.to_s, :parent => comment.id.to_s), class: "reply" %>
+  </div>
+  <% end %>
+  <div id="new_comment">
+    <%= render :partial => '/comments/form', :locals => {:model => @report, :comment => Comment.new}%>
+  </div>
+</div> <!-- comments -->
 
 
 <script>

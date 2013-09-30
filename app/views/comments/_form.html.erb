@@ -1,5 +1,5 @@
-<p>Leave a comment</p>
-<%= form_for [model,comment] do |f| %>
+<h3>Leave a comment</h3>
+<%= form_for [model,comment], html: { class: "form-horizontal new_comment", role: "form" } do |f| %>
   <% if model.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(model.errors.count, "error") %> prohibited this comment from being saved:</h2>
@@ -13,15 +13,22 @@
   <% if comment.parent %>
     <%= f.hidden_field :parent, :value => comment.parent %>
   <% end %>
-  <div class="field">
-    <%= f.label :author %><br />
-    <%= f.text_field :author %>
+  
+  <div class="form-group">
+	<%= f.label :author, class: "col-lg-1 control-label" %>
+    <div class="col-lg-5">
+      <%= f.text_field :author, class: "form-control" %>
+    </div>
   </div>
-   <div class="field">
-    <%= f.label :text %><br />
-    <%= f.text_area :text %>
+  <div class="form-group">
+	<%= f.label :text, class: "col-lg-1 control-label" %>
+    <div class="col-lg-11">
+      <%= f.text_area :text, class: "form-control" %>
+    </div>
   </div>
-<div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+    <div class="col-lg-offset-1 col-lg-5">
+		<%= f.submit class: "btn btn-primary"%>
+    </div>
   </div>
-<% end %>
+ <% end %>
