@@ -8,9 +8,12 @@ class ReportsController < ApplicationController
     @status = params[:scope] ? params[:scope].to_sym : :open
     if @status == :archived
       @reports = Report.archived
+    elsif @status == :available_on_next_build
+      @reports = Report.available_on_next_build
     elsif @status == :ready_to_test
       @reports = Report.ready_to_test
     else
+      @status = :new
       @reports = Report.opened
     end
   
@@ -74,7 +77,25 @@ class ReportsController < ApplicationController
         format.html { redirect_to @report, notice: 'Report was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: "index" }
+        format.json { render json: @report.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /reports/new_build
+  # PUT /reports/new_build.json
+  def new_build
+    attributes = {status: Report::STATUS[:ready_to_test]}
+    attributes[:fix_version] = params[:version] if params[:version]
+    
+    @reports = Report.available_on_next_build.update(attributes)
+    respond_to do |format|
+      if @reports
+        format.html { redirect_to reports_url, notice: 'Reports was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to :back, notice: 'Reports was not updated.' }
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
     end
@@ -85,7 +106,6 @@ class ReportsController < ApplicationController
   # PUT /reports/1.json
   def update
     @report = Report.find(params[:id])
-
     respond_to do |format|
       if @report.update_attributes(params[:report])
         format.html { redirect_to @report, notice: 'Report was successfully updated.' }

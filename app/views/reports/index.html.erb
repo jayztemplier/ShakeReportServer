@@ -4,17 +4,23 @@
 
   <table class="table table-bordered table-hover">
   	<thead>
-    		<tr>
-    		  <th>Title</th>
-  	  	  <th>Created at</th>
-    		  <th></th>
-    		</tr>
+    	<tr>
+    	  <th>Title</th>
+  		  <th>Created at</th>
+		  <% if Report::STATUS[@status] > Report::STATUS[:available_on_next_build]%>
+  		   <th>Fix version</th>
+		  <% end %>
+    	  <th></th>
+   		</tr>
   	</thead>
   	<tbody>
   		<% @reports.each do |report| %>
   		  <tr>
   		    <td><%= report.title || "No title" %></td>
   			<td><%= report.created_at.to_formatted_s(:short) %></td>
+  		  <% if Report::STATUS[@status] > Report::STATUS[:available_on_next_build]%>
+			<td><%= report.fix_version || "N/A" %></td>
+  		  <% end %>
   		    <td><%= link_to 'Show', report, class: "btn btn-primary" %></td>
   		  </tr>
   		<% end %>	

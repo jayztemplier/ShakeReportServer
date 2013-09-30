@@ -64,6 +64,12 @@
                   </li>
             <li><%= link_to "Mailing", alert_mails_url  %></li>
           </ul>
+		   <%= form_tag(new_build_reports_path, method: :put, class: "navbar-form navbar-right") do %>
+	 	   	<div class="form-group">
+		     	<%= text_field_tag 'version', params[:version], class: "form-control", placeholder: "version number" %>
+	 	    </div>
+	  	    <%= submit_tag 'New Build', class: "btn btn-warning", confirm: "When you create a new build, all the reports in 'available in the next build' will be in 'ready to be tested'. Are you sure you want to continue?" %>
+		   <% end %>
         </nav>
       </div>
     </header>

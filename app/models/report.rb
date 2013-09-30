@@ -15,6 +15,9 @@ class Report
   field :crash_logs, type: String
   field :dumped_view, type: String
   field :status, type: Integer, default: STATUS[:new]
+
+  field :fix_version, type: String
+  
   has_mongoid_attached_file :screen_capture
   
   scope :opened, where(:status => STATUS[:new])
