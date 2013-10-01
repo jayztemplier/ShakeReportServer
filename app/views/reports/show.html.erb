@@ -20,10 +20,23 @@
 
 
 
-
-<p class="well message">
-	<%= @report.message %>
-</p>
+<div class="row">
+	<div class="col-xs-9">
+		<p class="well message">
+			<%= @report.message %>
+		</p>
+	</div>
+	<div class="col-xs-3for system_info">
+		<p>
+			<strong>Device:</strong>
+			<%= @report.device_model || "n/a" %>
+		</p>
+		<p>
+			<strong>OS:</strong>
+			<%= @report.os_version || "n/a" %>
+		</p>
+	</div>
+</div>
 
 <ul id="myTab" class="nav nav-tabs">
   <% if @report.screen_capture_file_name %>
@@ -68,7 +81,6 @@
 
 <hr/>
  <div class="" id="comments">
-  <%= link_to "Leave a comment", "#new_comment", class: "btn btn-primary" %>
   <% @report.comments_list.each do |comment| %>
   <div class="well comment level_<%= comment.level %>" style="margin-left: <%= comment.level * 20 %>px">
     <p class="author"> <%= comment.author %> <%= comment.level > 1 ? "replied:" : "commented:" %></p>

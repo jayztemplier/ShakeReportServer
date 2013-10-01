@@ -89,7 +89,7 @@ class ReportsController < ApplicationController
     attributes = {status: Report::STATUS[:ready_to_test]}
     attributes[:fix_version] = params[:version] if params[:version]
     
-    @reports = Report.available_on_next_build.update(attributes)
+    @reports = Report.available_on_next_build.update_all(attributes)
     respond_to do |format|
       if @reports
         format.html { redirect_to reports_url, notice: 'Reports was successfully updated.' }

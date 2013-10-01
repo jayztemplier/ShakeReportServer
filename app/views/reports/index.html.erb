@@ -17,7 +17,7 @@
   		<% @reports.each do |report| %>
   		  <tr>
   		    <td><%= report.title || "No title" %></td>
-  			<td><%= report.created_at.to_formatted_s(:short) %></td>
+  			<td><%= report.created_at ? report.created_at.to_formatted_s(:short) : "N/A" %></td>
   		  <% if Report::STATUS[@status] > Report::STATUS[:available_on_next_build]%>
 			<td><%= report.fix_version || "N/A" %></td>
   		  <% end %>

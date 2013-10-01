@@ -10,6 +10,8 @@ class Report
   STATUS = {new: 0, available_on_next_build: 1 ,ready_to_test: 2, archived: 3}
   field :title, type: String
   field :message, type: String
+  field :device_model, type: String
+  field :os_version, type: String
   field :screenshot, type: String
   field :logs, type: String
   field :crash_logs, type: String
