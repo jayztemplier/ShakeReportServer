@@ -5,7 +5,6 @@ gem 'rails', '3.2.8'
 gem "mongoid", "~> 3.0.0"
 gem 'simple_form'
 gem 'newrelic_rpm'
-gem "skylight"
 gem "mongoid-paperclip", :require => "mongoid_paperclip"
 gem 'aws-sdk', '~> 1.3.4'
 gem 'mongoid_commentable'
