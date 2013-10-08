@@ -38,8 +38,9 @@ Launch the rails app:
 Create an Heroku app:
 `heroku create my_app_name`
 
-Enable SendGrid and Scheduler for your heroku app
+Enable SendGrid, Scheduler and MongoHQ for your heroku app
 `
+heroku addons:add mongohq
 heroku addons:add scheduler`
 `heroku addons:add sendgrid:starter
 `
