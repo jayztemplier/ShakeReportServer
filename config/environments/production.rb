@@ -83,6 +83,11 @@ ShakeReport::Application.configure do
         :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
       }
     }
+  else
+    config.paperclip_defaults = {
+      :path => ":rails_root/public/uploads/:class/:id/:filename",
+      :url => "/uploads/:class/:id/:filename",
+    }
   end
     
 end
