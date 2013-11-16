@@ -1,4 +1,4 @@
-namespace :sr_report do
+namespace :heroku do
   desc "Setup heroku application"
   task :setup, [:app, :username, :password] => [:environment] do |t, args|
     app = args[:app]
@@ -35,6 +35,27 @@ namespace :sr_report do
     system "heroku maintenance:on --app #{app}"
     system "git push #{remote} master"
     system "heroku maintenance:off --app #{app}"
+    puts "---------------- DONE -------------------"
+  end
+end
+
+namespace :local do
+  desc "Setup local application"
+  task :setup, [:username, :password] => [:environment] do |t, args|
+    puts "---------------SR REPORT -----------------"    
+    puts "Setting up local app with username #{args[:username]}"
+    system "export SR_USERNAME=#{args[:username]}"
+    system "export SR_PASSWORD=#{args[:password]}"
+    puts "---------------- DONE -------------------"
+  end
+  
+  desc "Setup AWS3"
+  task :setup_aws, [:bucket, :key, :secret_key] => [:environment] do |t, args|
+    puts "---------------SR REPORT -----------------"
+    puts "Setting up AWS3 on #{app} ... "
+    system "export AWS_BUCKET=#{args[:bucket]}"
+    system "export AWS_ACCESS_KEY_ID=#{args[:key]}"
+    system "export AWS_SECRET_ACCESS_KEY=#{args[:secret_key]}"
     puts "---------------- DONE -------------------"
   end
 end
