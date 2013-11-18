@@ -60,6 +60,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
+    curb (0.8.5)
     daemons (1.1.9)
     erubis (2.7.0)
     eventmachine (1.0.3)
@@ -166,6 +167,8 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk (~> 1.3.4)
   coffee-rails (~> 3.2.1)
+  curb
+  httparty
   jiraSOAP
   jquery-rails
   mongoid (~> 3.0.0)

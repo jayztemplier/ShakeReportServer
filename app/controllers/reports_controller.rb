@@ -27,7 +27,7 @@ class ReportsController < ApplicationController
   # GET /reports/1.json
   def show
     @report = Report.find(params[:id])
-
+    @show_jira = Setting.get_settings.jira_valid?
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @report }
@@ -129,4 +129,18 @@ class ReportsController < ApplicationController
     end
   end
 
+  def create_jira_issue
+    @report = Report.find(params[:report_id])
+    settings = Setting.get_settings
+    @jira_url = Jira::Client.default_client.create_issue_for_report(@report, settings.get(:jira_project_key), settings.get(:jira_issue_id))
+    respond_to do |format|
+      if @jira_url && @report.update_attributes({jira_ticket: @jira_url})
+        format.html { redirect_to @report, notice: "Jira issue successfully created: #{@jira_url}"}
+        format.json { render json: {jira_issue_url: @jira_url}, status: :created }
+      else
+        format.html { redirect_to @report, alert: 'Jira issue not created.' }
+        format.json { render json: @report.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 end
