@@ -6,9 +6,8 @@ ShakeReport::Application.routes.draw do
     put :new_build, on: :collection
     resources :comments
   end
-  
-  resources :settings, only: [:index] do |setting|
-    put :update_jira
+  resources :settings, only: [:index] do
+   put :update_jira
   end
   resources :alert_mails, only: [:index, :create, :destroy]
 end
