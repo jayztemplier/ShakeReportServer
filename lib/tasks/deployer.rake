@@ -26,6 +26,18 @@ namespace :heroku do
     puts "---------------- DONE -------------------"
   end
   
+  desc "Setup Jira integration"
+  task :setup_jira, [:host, :username, :password] => [:environment] do |t, args|
+    app = args[:app]
+    remote = "git@heroku.com:#{app}.git"
+    puts "---------------SR REPORT -----------------"
+    puts "Setting up JIRA integration on #{app} ... "
+    system "heroku config:set JIRA_HOST=#{args[:host]} --app #{app}"
+    system "heroku config:set JIRA_USERNAME=#{args[:username]} --app #{app}"
+    system "heroku config:set JIRA_PASSWORD=#{args[:password]} --app #{app}"
+    puts "---------------- DONE -------------------"
+  end
+  
   desc "Deploy current branch"
   task :deploy, [:app] => [:environment] do |t, args|
     app = args[:app]
@@ -52,10 +64,22 @@ namespace :local do
   desc "Setup AWS3"
   task :setup_aws, [:bucket, :key, :secret_key] => [:environment] do |t, args|
     puts "---------------SR REPORT -----------------"
-    puts "Setting up AWS3 on #{app} ... "
+    puts "Setting up AWS3 locally ..."
     system "export AWS_BUCKET=#{args[:bucket]}"
     system "export AWS_ACCESS_KEY_ID=#{args[:key]}"
     system "export AWS_SECRET_ACCESS_KEY=#{args[:secret_key]}"
+    puts "---------------- DONE -------------------"
+  end
+  
+  
+  desc "Setup Jira integration"
+  task :setup_jira, [:host, :username, :password] => [:environment] do |t, args|
+    app = args[:app]
+    puts "---------------SR REPORT -----------------"
+    puts "Setting up JIRA integration locally ..."
+    system "export JIRA_HOST=#{args[:host]}"
+    system "export JIRA_USERNAME=#{args[:username]}"
+    system "export JIRA_PASSWORD=#{args[:password]}"
     puts "---------------- DONE -------------------"
   end
 end
