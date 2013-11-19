@@ -51,6 +51,12 @@
   <li><a href="#crash" data-toggle="tab">Crash</a></li>
   <% end %>
   <li><a href="#comments">Comments</a></li>
+
+  <% if @report.jira_ticket %>
+  <li class="pull-right"><%= link_to "Jira ticket", @report.jira_ticket, target: "blank" %></li>
+  <% elsif @show_jira %>
+  <li class="pull-right"><%= link_to "Create Jira ticket", report_create_jira_issue_url(@report), method: :post %></li>
+  <% end %>
 </ul>
 
 <div id="myTabContent" class="tab-content">

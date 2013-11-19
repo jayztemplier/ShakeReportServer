@@ -23,12 +23,15 @@ Clone the repository:
 Enter in the ShakeReportServer folder:
 `cd ShakeReportServer`
 
+Make sure you have all the dependencies by running:
+`./script/install_dependencies.sh`
+
 Run the bundle command:
 `bundle install`
 
 Set up a user:
-`export SR_USERNAME="jayztemplier"`
-`export SR_PASSWORD="your_password"`
+`bundle exec rake local:setup[jeremy,mypassword]`
+
 If you don't setup a user, by default the website won't be protected.
 
 Launch the rails app:
@@ -39,25 +42,39 @@ Create an Heroku app:
 `heroku create my_app_name`
 
 Enable SendGrid, Scheduler and MongoHQ for your heroku app
-`
-heroku addons:add mongohq
-heroku addons:add scheduler`
-`heroku addons:add sendgrid:starter
-`
-
-Setup the user config:
-`heroku config:set SR_USERNAME=myusername`
-heroku config:set SR_PASSWORD=mypassword`
+`bundle exec rake heroku:setup[my_app_name,jeremy,mypassword]`
 
 Deploy!
-`git push heroku master`
+`bundle exec rake heroku:deploy[my_app_name]`
 
 Check that it's running by visiting `http://localhost:3000`
 A prompt will ask you your username and password. Use the logins you just created.
+
 # Features
 
 * List of the reports sent from the devices
 * Possibility to archive the report
+* Support Jira integration
+* Save video recording on AWS3
+
+# Use AWS3 storage
+## Local
+Simply run this command:
+`bundle exec rake local:setup_aws[bucket_name,key,secret_key]`
+## Heroku
+Almost the same command:
+`bundle exec rake heroku:setup_aws[bucket_name,key,secret_key]`
+
+# Activate Jira integration
+## Local
+Setup your environement with some Jira information:
+`bundle exec rake local:setup_jira[url_to_jira,username,password]`
+
+Then lunch the server and go to your settings page to make sure a project and an issue type are defined.
+To report a new ticket, open a report and clic on «Create a Jira ticket »
+## Heroku
+Same thing than locally, but run this command line instead :
+`bundle exec rake heroku:setup_jira[url_to_jira,username,password]`
 
 # License
 SRReport is available under the MIT license. See the LICENSE file for more info

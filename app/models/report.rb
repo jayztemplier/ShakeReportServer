@@ -17,6 +17,7 @@ class Report
   field :crash_logs, type: String
   field :dumped_view, type: String
   field :status, type: Integer, default: STATUS[:new]
+  field :jira_ticket, type: String
 
   field :fix_version, type: String
   
@@ -28,4 +29,17 @@ class Report
   scope :archived, where(:status => STATUS[:archived])
   scope :today, where(:created_at.gte => Date.today)
 
+  def message_for_ticket
+    host = Rails.application.config.action_mailer.default_url_options[:host]
+    m = "--------------------------------------------------------------\n"
+    m = m + "OS: #{self.os_version}\n"
+    m = m + "Device: #{self.device_model}\n"
+    m = m + "--------------------------------------------------------------\n"
+    m = m + message + "\n"
+    m = m + "--------------------------------------------------------------\n"
+    m = m + "Video: #{self.screen_capture.url}\n" if self.screen_capture_file_name
+    m = m + "More info there: #{Rails.application.routes.url_helpers.report_url(self, host: host)}\n"
+    m = m + "Created with Shake Report."
+  end
+  
 end
