@@ -62,7 +62,8 @@
                       <li><%= link_to "Archived", reports_url(scope: :archived)  %></li>
                     </ul>
                   </li>
-            <li><%= link_to "Mailing", alert_mails_url  %></li>
+	            <li><%= link_to "Mailing", alert_mails_url  %></li>
+            	<li><%= link_to "Settings", settings_url  %></li>
           </ul>
 		   <%= form_tag(new_build_reports_path, method: :put, class: "navbar-form navbar-right") do %>
 	 	   	<div class="form-group">
