@@ -1,10 +1,11 @@
 <div id="jira" class="row well">
 	<h4>Jira integration</h4>
+
+	<% if Jira::Client.enabled? %>
 	<p>
 		Host: <%= link_to Jira::Client.default_client.host, Jira::Client.default_client.host, target: "blank"%> <br/>
 		User: <%= Jira::Client.default_client.user %>
 	</p>
-	<% if Jira::Client.enabled? %>
 		<%= form_tag(setting_update_jira_path(@settings), method: "put", class: "form-horizontal", role: "form") do %>
 			<div class="form-group">
 			    <label class="col-sm-2 control-label">Project</label>
@@ -35,6 +36,7 @@
 			<li>JIRA_HOST: host of the Jira instance</li>
 			<li>JIRA_USERNAME: username</li>
 			<li>JIRA_PASSWORD: user's password</li>
+			<li>or run the rake task: <pre>bundle exec rake local:setup_jira[url_to_jira,username,password]</pre></li>
 		</ul>
 	<% end %>
 </div>

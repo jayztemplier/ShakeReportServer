@@ -36,6 +36,6 @@ class SettingsController < ApplicationController
   def get_jira_project
     @jira_project_key = @settings.get(:jira_project_key)
     @jira_issue_id = @settings.get(:jira_issue_id)
-    @jira_projects = $jira_client.projects
+    @jira_projects = $jira_client.projects if $jira_client
   end
 end
