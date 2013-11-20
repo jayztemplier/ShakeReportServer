@@ -1,0 +1,4 @@
+rvm:
+  - 1.9.3
+env:
+  - SR_USERNAME=jeremy SR_PASSWORD=password
