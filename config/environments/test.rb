@@ -1,3 +1,10 @@
+if ENV['RAILS_ENV'] == 'test'
+  require 'simplecov'
+  SimpleCov.start 'rails'
+  puts "required simplecov"
+end
+
+
 ShakeReport::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 

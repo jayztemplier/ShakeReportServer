@@ -28,6 +28,7 @@ end
 group :test do
   gem 'shoulda-context'
   gem 'factory_girl_rails'
+  gem 'simplecov', :require => false
 end
 
 gem 'jquery-rails'
