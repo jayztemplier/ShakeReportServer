@@ -1,49 +1,25 @@
 require 'test_helper'
 
 class ReportsControllerTest < ActionController::TestCase
+  
   setup do
-    @report = reports(:one)
+    Report.delete_all
+    @report = FactoryGirl.create(:report)
   end
-
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:reports)
-  end
-
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create report" do
-    assert_difference('Report.count') do
-      post :create, report: { crash_logs: @report.crash_logs, dumped_view: @report.dumped_view, logs: @report.logs, screenshot: @report.screenshot }
+  
+  context "when requesting index" do
+    setup do
+      user = ENV['SR_USERNAME']
+      pw = ENV['SR_PASSWORD']
+      request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(user,pw)
+      get :index
     end
-
-    assert_redirected_to report_path(assigns(:report))
-  end
-
-  test "should show report" do
-    get :show, id: @report
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, id: @report
-    assert_response :success
-  end
-
-  test "should update report" do
-    put :update, id: @report, report: { crash_logs: @report.crash_logs, dumped_view: @report.dumped_view, logs: @report.logs, screenshot: @report.screenshot }
-    assert_redirected_to report_path(assigns(:report))
-  end
-
-  test "should destroy report" do
-    assert_difference('Report.count', -1) do
-      delete :destroy, id: @report
+    should "be a success" do
+      assert_response :success
     end
-
-    assert_redirected_to reports_path
+    should "get one report" do
+      reports = assigns(:reports)
+      assert_equal 1, reports.size
+    end
   end
 end

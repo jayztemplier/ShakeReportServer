@@ -25,6 +25,11 @@ group :assets do
   gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'bootstrap3'
 end
 
+group :test do
+  gem 'shoulda-context'
+  gem 'factory_girl_rails'
+end
+
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
