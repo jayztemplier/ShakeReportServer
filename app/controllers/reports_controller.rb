@@ -34,33 +34,14 @@ class ReportsController < ApplicationController
     end
   end
 
-  # GET /reports/new
-  # GET /reports/new.json
-  def new
-    @report = Report.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @report }
-    end
-  end
-
-  # GET /reports/1/edit
-  def edit
-    @report = Report.find(params[:id])
-  end
-
   # POST /reports
   # POST /reports.json
   def create
     @report = Report.new(params[:report])
-
     respond_to do |format|
       if @report.save
-        format.html { redirect_to @report, notice: 'Report was successfully created.' }
         format.json { render json: @report, status: :created, location: @report }
       else
-        format.html { render action: "new" }
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
     end
@@ -70,14 +51,15 @@ class ReportsController < ApplicationController
   # PUT /reports/1/update_status.json
   def update_status
     @report = Report.find(params[:report_id])
-    new_status = @report.status+1
+    new_status = @report.status+1 < Report::STATUS.size ? @report.status+1 : @report.status
     
     respond_to do |format|
-      if @report.update_attributes(status: new_status)
+      if new_status != @report.status && @report.update_attributes(status: new_status)
         format.html { redirect_to @report, notice: 'Report was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "index" }
+        @show_jira = Setting.get_settings.jira_valid?
+        format.html { render action: "show", notice: "The current status is the last level of report status available." }
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
     end
@@ -88,58 +70,49 @@ class ReportsController < ApplicationController
   def new_build
     attributes = {status: Report::STATUS[:ready_to_test]}
     attributes[:fix_version] = params[:version] if params[:version]
-    
-    @reports = Report.available_on_next_build.update_all(attributes)
+    @reports = Report.available_on_next_build
+    @count = @reports.count
+    @reports.update_all(attributes) if @count > 0
     respond_to do |format|
-      if @reports
-        format.html { redirect_to reports_url, notice: 'Reports was successfully updated.' }
+      if @count > 0 && @reports
+        format.html { redirect_to reports_url, notice: "New build created, #{@count} reports updated." }
         format.json { head :no_content }
       else
-        format.html { redirect_to :back, notice: 'Reports was not updated.' }
+        format.html { redirect_to :back, alert: 'New build annouced, but not report was waiting for a new build.' }
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
-    end
-  end
-  
-  
-  # PUT /reports/1
-  # PUT /reports/1.json
-  def update
-    @report = Report.find(params[:id])
-    respond_to do |format|
-      if @report.update_attributes(params[:report])
-        format.html { redirect_to @report, notice: 'Report was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @report.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /reports/1
-  # DELETE /reports/1.json
-  def destroy
-    @report = Report.find(params[:id])
-    @report.destroy
-
-    respond_to do |format|
-      format.html { redirect_to reports_url }
-      format.json { head :no_content }
     end
   end
 
   def create_jira_issue
     @report = Report.find(params[:report_id])
     settings = Setting.get_settings
-    @jira_url = Jira::Client.default_client.create_issue_for_report(@report, settings.get(:jira_project_key), settings.get(:jira_issue_id))
+    client = Jira::Client.default_client
     respond_to do |format|
-      if @jira_url && @report.update_attributes({jira_ticket: @jira_url})
-        format.html { redirect_to @report, notice: "Jira issue successfully created: #{@jira_url}"}
-        format.json { render json: {jira_issue_url: @jira_url}, status: :created }
-      else
-        format.html { redirect_to @report, alert: 'Jira issue not created.' }
-        format.json { render json: @report.errors, status: :unprocessable_entity }
+      if client
+        begin
+          @jira_url = Jira::Client.default_client.create_issue_for_report(@report, settings.get(:jira_project_key), settings.get(:jira_issue_id))
+          if @report.update_attributes({jira_ticket: @jira_url}) && @report.jira_ticket == @jira_url
+            format.html { redirect_to @report, notice: "Jira issue successfully created: #{@jira_url}"}
+            format.json { render json: @report, status: :created }
+          else
+            message = "An error occured during the linking of the report with the Jira ticket: #{@jira_url}"
+            format.html { redirect_to @report, alert: message }
+            format.json { render json: {error: message}, status: :unprocessable_entity }
+          end
+        rescue Jira::Error::NotConnectedError
+          message = 'An error occured, Jira issue not created. Please check that you configuration is correct.'
+          format.html { redirect_to @report, alert: message }
+          format.json { render json: {error: message}, status: :unprocessable_entity }
+        rescue Exception => e   
+          message = "An error occured. #{e}"
+          format.html { redirect_to @report, alert: message }
+          format.json { render json: {error: message}, status: :unprocessable_entity }          
+        end
+      else  
+        message = 'Jira not configured.'
+        format.html { redirect_to @report, alert: message }
+        format.json { render json: {error: message}, status: :method_not_allowed }
       end
     end
   end

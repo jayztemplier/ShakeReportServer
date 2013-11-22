@@ -23,6 +23,8 @@ class Report
   
   has_mongoid_attached_file :screen_capture
   
+  validate :has_one_attribute_set
+  
   scope :opened, where(:status => STATUS[:new])
   scope :available_on_next_build, where(:status => STATUS[:available_on_next_build])
   scope :ready_to_test, where(:status => STATUS[:ready_to_test])
@@ -42,4 +44,10 @@ class Report
     m = m + "Created with Shake Report."
   end
   
+  protected
+  def has_one_attribute_set
+    if title.nil? && message.nil? && device_model.nil? && os_version.nil? && screenshot.nil? && logs.nil? && crash_logs.nil? && dumped_view.nil?
+      errors.add(:title, 'or at least one attribute needs to be set')
+    end
+  end
 end

@@ -13,7 +13,7 @@ module Jira
     end
     
     def self.enabled?
-      !$jira_client.nil?
+      !self.default_client.nil?
     end
     
     def initialize(endpoint, username, password)
@@ -44,7 +44,7 @@ module Jira
     end
     
     def assert_connected
-      raise Jira::Error::AuthenticationError.new("Status is #{connection_status}") unless connected?
+      raise Jira::Error::NotConnectedError.new("Status is #{status}") unless connected?
     end
     
     def base_options
@@ -93,6 +93,7 @@ module Jira
     end
     
     def post_request(path, options = {})
+      assert_connected
       resp = self.class.post('/issue/', base_options.merge(options))
       if resp.code == 201
         jira_root = self.host

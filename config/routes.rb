@@ -1,6 +1,6 @@
 ShakeReport::Application.routes.draw do
   root :to => 'reports#index'  
-  resources :reports do |report|
+  resources :reports, only: [:index, :create, :show] do |report|
     post :create_jira_issue
     put :update_status
     put :new_build, on: :collection

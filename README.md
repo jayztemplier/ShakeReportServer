@@ -1,4 +1,5 @@
-# Shake Report Server
+# Shake Report Server [![Build Status](https://travis-ci.org/jayztemplier/ShakeReportServer.png)](https://travis-ci.org/jayztemplier/ShakeReportServer)
+
 
 Shake Report server is a small server that you can use as a backend for the Shake Report iOS library
 https://github.com/jayztemplier/ShakeReport
