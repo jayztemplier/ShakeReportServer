@@ -70,14 +70,15 @@ class ReportsController < ApplicationController
   def new_build
     attributes = {status: Report::STATUS[:ready_to_test]}
     attributes[:fix_version] = params[:version] if params[:version]
-    
-    @reports = Report.available_on_next_build.update_all(attributes)
+    @reports = Report.available_on_next_build
+    @count = @reports.count
+    @reports.update_all(attributes) if @count > 0
     respond_to do |format|
-      if @reports
-        format.html { redirect_to reports_url, notice: 'Reports was successfully updated.' }
+      if @count > 0 && @reports
+        format.html { redirect_to reports_url, notice: "New build created, #{@count} reports updated." }
         format.json { head :no_content }
       else
-        format.html { redirect_to :back, notice: 'Reports was not updated.' }
+        format.html { redirect_to :back, alert: 'New build annouced, but not report was waiting for a new build.' }
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
     end

@@ -33,17 +33,21 @@ class ReportsControllerTest < ActionController::TestCase
       http_login
     end
     
-    context "when requesting new reports" do
-      setup do
-        @report = FactoryGirl.create(:report)
-        get :index
-      end
-      should "be a success" do
-        assert_response :success
-      end
-      should "get one report" do
-        reports = assigns(:reports)
-        assert_equal 1, reports.size
+    context "when requesting reports" do
+      Report::STATUS.keys.each do |status|
+        context "for status #{status}" do
+          setup do
+            @report = FactoryGirl.create(:report, status: Report::STATUS[status])
+            get :index, scope: status
+          end
+          should "be a success" do
+            assert_response :success
+          end
+          should "get one report" do
+            reports = assigns(:reports)
+            assert_equal 1, reports.size
+          end
+        end
       end
     end
 
@@ -53,7 +57,6 @@ class ReportsControllerTest < ActionController::TestCase
         FactoryGirl.create(:report, status: Report::STATUS[:available_on_next_build])    
         get :index, scope: :archived
       end
-      
       context "but there is no archived report" do
         should "be a success" do
           assert_response :success
@@ -144,8 +147,62 @@ class ReportsControllerTest < ActionController::TestCase
           assert_equal @report_params[:crash_logs], report['crash_logs']
         end
       end
+      context "and an no param is provided" do
+        setup do
+          post :create, report: {}, format: :json
+        end
+        should "get an unprocessable entity response" do
+          assert_response :unprocessable_entity
+        end
+      end
     end
     
+    context "and declare a new build is available" do
+      setup do
+        @version = "1.0"
+        @request.env['HTTP_REFERER'] = 'http://example.com/'
+      end
+      context "and we have at least one report waiting for a new build" do
+        setup do
+          FactoryGirl.create(:report, status: Report::STATUS[:available_on_next_build])
+        end
+        should "get a redirection" do
+          put :new_build, version: @version
+          assert_response :found
+        end
+        should "get a notice message" do
+          put :new_build, version: @version
+          assert_not_nil flash[:notice]
+        end
+        should "add a new report ready to be tested" do
+          assert_difference 'Report.ready_to_test.count' do
+            put :new_build, version: @version
+          end
+        end
+      end
+      context "and no report is waiting for a new build to be tested" do
+        setup do
+          assert_equal 0, Report.available_on_next_build.count
+        end
+        should "get a redirection" do
+          put :new_build, version: @version
+          assert_response :found
+        end
+        should "get a alert message" do
+          put :new_build, version: @version
+          assert_not_nil flash[:alert]
+        end
+        should "not have a new report ready for tests" do
+          assert_no_difference 'Report.ready_to_test.count' do
+            put :new_build, version: @version
+          end
+        end
+        should "have a count set to zero" do
+          put :new_build, version: @version
+          assert_equal 0, assigns(:count)
+        end
+      end
+    end
   end
   
   def http_login
