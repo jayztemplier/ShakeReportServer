@@ -203,6 +203,86 @@ class ReportsControllerTest < ActionController::TestCase
         end
       end
     end
+    context "and wants to create a jira ticket for a report" do
+      setup do
+        @report = FactoryGirl.create(:report)
+      end
+      context "but jira isn't configured" do
+        setup do
+          Jira::Client.stubs(:default_client).returns(nil)
+          post :create_jira_issue, report_id: @report.id
+        end
+        should "get an alert message" do
+          assert_not_nil flash[:alert]
+        end
+        should "get a redirect" do
+          assert_response :found
+        end
+      end
+      context ", jira is configured" do
+        setup do
+          Jira::Client.stubs(:default_client).returns(Jira::Client.new("http://example.com", "myusername", "mypassword"))
+        end
+        context "but the jira instance is not reachable (host, username, or password issue)" do
+          setup do
+            Jira::Client.any_instance.stubs(:status).returns(403)
+            post :create_jira_issue, report_id: @report.id
+          end
+          should "get an alert message" do
+            assert_not_nil flash[:alert]
+          end
+          should "get a redirect" do
+            assert_response :found
+          end
+        end
+        context "and the jira client is connected" do
+          setup do
+            Jira::Client.any_instance.stubs(:status).returns(200)
+            Setting.any_instance.stubs(:get).returns("aValue")
+          end
+          context "but Jira returned and error during the creation of the ticket" do
+            setup do
+              stub_request(:post, "http://myusername:mypassword@example.com/rest/api/2/issue/").to_return(:status => [401, "Forbidden"])
+              post :create_jira_issue, report_id: @report.id
+            end
+            should "get an alert message" do
+              assert_not_nil flash[:alert]
+            end
+            should "get a redirect" do
+              assert_response :found
+            end
+          end
+          context "and jira successfuly created the issue" do
+            setup do
+              Jira::Client.any_instance.stubs(:post_request).returns("www.jiraticket.com")
+            end
+            context "and the report saved the jira ticket url" do
+              setup do
+                post :create_jira_issue, report_id: @report.id
+              end
+              should "get an notice message" do
+                assert_not_nil flash[:notice]
+              end
+              should "get a redirect" do
+                assert_response :found
+              end
+            end
+            context "but the report didn't update the jira ticket url" do
+              setup do
+                Report.any_instance.stubs(:jira_ticket).returns(nil)
+                post :create_jira_issue, report_id: @report.id
+              end
+              should "get an alert message" do
+                assert_not_nil flash[:alert]
+              end
+              should "get a redirect" do
+                assert_response :found
+              end
+            end
+          end
+        end
+      end
+    end
   end
   
   def http_login

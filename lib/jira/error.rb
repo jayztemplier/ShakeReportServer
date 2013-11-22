@@ -1,7 +1,7 @@
 module Jira
   class Error
     
-    class AuthenticationError < StandardError
+    class NotConnectedError < StandardError
     end
 
     class NoSuchProjectError < StandardError

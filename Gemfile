@@ -29,6 +29,8 @@ group :test do
   gem 'shoulda-context'
   gem 'factory_girl_rails'
   gem 'simplecov', :require => false
+  gem "mocha", :require => false
+  gem "webmock", :require => false
 end
 
 gem 'jquery-rails'
