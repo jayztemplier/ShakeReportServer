@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def current_application
-    @current_application ||= current_user.applications.first
+    current_user.applications.find(params[:application_id])
   end
   helper_method :current_application
 
