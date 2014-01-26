@@ -1,0 +1,37 @@
+<h1>Applications</h1>
+
+<div class="new_mail_form">
+  <%= simple_form_for(Application.new, html: {class: "form-inline"}) do |f| %>
+      <%= f.error_notification %>
+
+      <div class="form-group">
+        <%= f.input :name, label: "" %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, class: "btn btn-primary"%>
+      </div>
+  <% end %>
+</div> <!-- new_mail_form -->
+
+<div class="applications">
+  <table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+      <th>name</th>
+      <th>token</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @applications.each do |app| %>
+        <tr>
+          <td><%= app.name %></td>
+          <td><%= app.token %></td>
+          <td><%= link_to 'Go', application_reports_path(app), class: "btn btn-primary" %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <br />
+</div> <!-- mails -->

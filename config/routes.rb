@@ -1,12 +1,14 @@
 ShakeReport::Application.routes.draw do
-  root :to => 'reports#index'
+  get "applications/index"
+
+  root :to => 'applications#index'
 
   match 'auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: redirect('/')
   match 'signout', to: 'sessions#destroy', as: 'signout'
   match 'authentication', to: 'sessions#index', as: 'authentication'
 
-  resources :applications, only: [:new, :create] do |app|
+  resources :applications, only: [:index , :create] do |app|
 
     resources :reports, only: [:index, :show] do |report|
       post :create_jira_issue

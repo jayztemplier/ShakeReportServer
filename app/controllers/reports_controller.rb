@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    @status = params[:scope] ? params[:scope].to_sym : :open
+    @status = params[:scope] ? params[:scope].to_sym : :new
     if @status == :archived
       @reports = current_application.reports.archived
     elsif @status == :available_on_next_build
@@ -14,6 +14,7 @@ class ReportsController < ApplicationController
       @status = :new
       @reports = current_application.reports.opened
     end
+    puts "status: #{@status}"
   
     respond_to do |format|
       format.html # index.html.erb
@@ -25,7 +26,7 @@ class ReportsController < ApplicationController
   # GET /reports/1.json
   def show
     @report = current_application.reports.find(params[:id])
-    @show_jira = Setting.get_settings.jira_valid?
+    @show_jira = current_application.setting.jira_valid?
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @report }

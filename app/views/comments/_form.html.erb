@@ -1,5 +1,5 @@
 <h3>Leave a comment</h3>
-<%= form_for [model,comment], html: { class: "form-horizontal new_comment", role: "form" } do |f| %>
+<%= form_for [current_application, model,comment], html: { class: "form-horizontal new_comment", role: "form" } do |f| %>
   <% if model.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(model.errors.count, "error") %> prohibited this comment from being saved:</h2>

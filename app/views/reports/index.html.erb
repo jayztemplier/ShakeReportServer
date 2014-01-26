@@ -21,7 +21,7 @@
   		  <% if Report::STATUS[@status] > Report::STATUS[:available_on_next_build]%>
 			<td><%= report.fix_version || "N/A" %></td>
   		  <% end %>
-  		    <td><%= link_to 'Show', report, class: "btn btn-primary" %></td>
+  		    <td><%= link_to 'Show', application_report_path(current_application, report), class: "btn btn-primary" %></td>
   		  </tr>
   		<% end %>	
   	</tbody>

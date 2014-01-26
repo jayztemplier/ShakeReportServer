@@ -24,12 +24,12 @@ class ApiController < ActionController::Base
   private
 
   def current_application
-    @current_application ||= Application.where(token: application_id) if application_id
+    @current_application ||= Application.find_by(token: application_id) if application_id
   end
   helper_method :current_application
 
   def application_id
-    request.headers[:token] || params[:token]
+    request.headers['X-APPLICATION-TOKEN'] || params[:token]
   end
 
 end
