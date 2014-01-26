@@ -4,6 +4,7 @@ ShakeReport::Application.routes.draw do
   match 'auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: redirect('/')
   match 'signout', to: 'sessions#destroy', as: 'signout'
+  match 'authentication', to: 'sessions#index', as: 'authentication'
 
   resources :reports, only: [:index, :create, :show] do |report|
     post :create_jira_issue

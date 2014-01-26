@@ -1,7 +1,5 @@
 class AlertMailsController < ApplicationController
 
-  before_filter :authenticate
-  
   # GET /mails
   # GET /mails.json
   def index
