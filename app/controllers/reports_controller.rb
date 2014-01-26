@@ -5,14 +5,14 @@ class ReportsController < ApplicationController
   def index
     @status = params[:scope] ? params[:scope].to_sym : :open
     if @status == :archived
-      @reports = Report.archived
+      @reports = current_application.reports.archived
     elsif @status == :available_on_next_build
-      @reports = Report.available_on_next_build
+      @reports = current_application.reports.available_on_next_build
     elsif @status == :ready_to_test
-      @reports = Report.ready_to_test
+      @reports = current_application.reports.ready_to_test
     else
       @status = :new
-      @reports = Report.opened
+      @reports = current_application.reports.opened
     end
   
     respond_to do |format|
@@ -24,7 +24,7 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.json
   def show
-    @report = Report.find(params[:id])
+    @report = current_application.reports.find(params[:id])
     @show_jira = Setting.get_settings.jira_valid?
     respond_to do |format|
       format.html # show.html.erb
@@ -32,23 +32,10 @@ class ReportsController < ApplicationController
     end
   end
 
-  # POST /reports
-  # POST /reports.json
-  def create
-    @report = Report.new(params[:report])
-    respond_to do |format|
-      if @report.save
-        format.json { render json: @report, status: :created, location: @report }
-      else
-        format.json { render json: @report.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # PUT /reports/1/update_status
   # PUT /reports/1/update_status.json
   def update_status
-    @report = Report.find(params[:report_id])
+    @report = current_application.reports.find(params[:report_id])
     new_status = @report.status+1 < Report::STATUS.size ? @report.status+1 : @report.status
     
     respond_to do |format|
@@ -68,7 +55,7 @@ class ReportsController < ApplicationController
   def new_build
     attributes = {status: Report::STATUS[:ready_to_test]}
     attributes[:fix_version] = params[:version] if params[:version]
-    @reports = Report.available_on_next_build
+    @reports = current_application.reports.available_on_next_build
     @count = @reports.count
     @reports.update_all(attributes) if @count > 0
     respond_to do |format|
@@ -83,7 +70,7 @@ class ReportsController < ApplicationController
   end
 
   def create_jira_issue
-    @report = Report.find(params[:report_id])
+    @report = current_application.reports.find(params[:report_id])
     settings = Setting.get_settings
     client = Jira::Client.default_client
     respond_to do |format|

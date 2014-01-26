@@ -29,7 +29,7 @@ class SettingsController < ApplicationController
   
   protected
   def init_variables
-    @settings = Setting.get_settings
+    @settings = current_application.setting
     get_jira_project
   end
   

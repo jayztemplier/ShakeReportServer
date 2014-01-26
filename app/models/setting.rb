@@ -2,18 +2,16 @@ class Setting
   include Mongoid::Document
   
   field :values, type: Hash
-  
-  def self.get_settings
-    first = Setting.first
-    @settings = first.nil? ? Setting.create_settings : first
-  end
+
+  embedded_in :application
   
   def set(key, value)
+    values = {} if values.nil?
     values[key.to_s] = value
   end
   
   def get(key)
-    values[key.to_s]
+    values.nil? ? nil : values[key.to_s]
   end
   
   def jira_valid?

@@ -3,6 +3,7 @@ class Application
   field :name, type: String
   field :token, type: String
   embeds_many :reports
+  embeds_one :setting, autobuild: true
 
   before_create :generate_token
 

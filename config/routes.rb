@@ -6,7 +6,7 @@ ShakeReport::Application.routes.draw do
   match 'signout', to: 'sessions#destroy', as: 'signout'
   match 'authentication', to: 'sessions#index', as: 'authentication'
 
-  resources :reports, only: [:index, :create, :show] do |report|
+  resources :reports, only: [:index, :show] do |report|
     post :create_jira_issue
     put :update_status
     put :new_build, on: :collection
@@ -16,4 +16,13 @@ ShakeReport::Application.routes.draw do
    put :update_jira
   end
   resources :alert_mails, only: [:index, :create, :destroy]
+
+
+  #################
+  #     API       #
+  #################
+  namespace :api do
+    resources :reports, only: [:create]
+  end
+
 end
