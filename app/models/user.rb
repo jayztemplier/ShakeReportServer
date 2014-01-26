@@ -4,7 +4,7 @@ class User
   field :uid, type: String
   field :name, type: String
   field :email, type: String
-
+  field :application_ids, type: Array, default: []
 
   def self.from_omniauth(auth)
     where(auth.slice("provider", "uid")).first || create_from_omniauth(auth)
@@ -18,4 +18,7 @@ class User
     end
   end
 
+  def applications
+    Application.in(id: application_ids)
+  end
 end

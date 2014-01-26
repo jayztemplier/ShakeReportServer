@@ -20,7 +20,9 @@ class Report
   field :jira_ticket, type: String
 
   field :fix_version, type: String
-  
+
+  embedded_in :application
+
   has_mongoid_attached_file :screen_capture
   
   validate :has_one_attribute_set
