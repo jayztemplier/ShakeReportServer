@@ -12,6 +12,9 @@ class ApplicationController < ActionController::Base
   #  end
   #end
 
+  def ensure_application
+    redirect_to root_url, alert: "Application not found" unless current_application
+  end
   protected
   def require_login
     if current_user
@@ -29,7 +32,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def current_application
-    current_user.applications.find(params[:application_id]) if params[:application_id]
+    current_user.applications.find(params[:application_id]) if params[:application_id] && current_user.application_ids.include?(params[:application_id])
   end
   helper_method :current_application
 

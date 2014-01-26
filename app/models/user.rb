@@ -4,7 +4,6 @@ class User
   field :uid, type: String
   field :name, type: String
   field :email, type: String
-  field :application_ids, type: Array, default: []
   field :is_super_admin, type: Boolean
 
   def self.from_omniauth(auth)
@@ -16,10 +15,15 @@ class User
       user.provider = auth["provider"]
       user.uid = auth["uid"]
       user.name = auth["info"]["nickname"]
+      #user.email = auth["info"]["email"]
     end
   end
 
+  def application_ids
+    @application_ids ||= ApplicationAccess.where(user_id: self.id).map(&:application_id)
+  end
+
   def applications
-    Application.in(id: application_ids)
+    @applications ||= Application.in(id: application_ids)
   end
 end

@@ -1,5 +1,7 @@
 class ReportsController < ApplicationController
 
+  before_filter :ensure_application
+
   # GET /reports
   # GET /reports.json
   def index

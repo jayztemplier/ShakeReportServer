@@ -1,5 +1,6 @@
 class SettingsController < ApplicationController
 
+  before_filter :ensure_application
   before_filter :init_variables
   
   # GET /settings
