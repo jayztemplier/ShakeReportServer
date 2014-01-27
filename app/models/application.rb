@@ -11,6 +11,11 @@ class Application
     ApplicationAccess.where(application_id: self.id)
   end
 
+  def users
+    user_ids = accesses.map(&:user_id)
+    User.in(id: user_ids)
+  end
+
   protected
 
   def generate_token

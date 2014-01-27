@@ -21,7 +21,7 @@ class Report
 
   field :fix_version, type: String
 
-  embedded_in :application
+  embedded_in :application, inverse_of: :reports
 
   has_mongoid_attached_file :screen_capture
   
