@@ -6,6 +6,7 @@ class SettingsController < ApplicationController
   # GET /settings
   # GET /settings.json
   def index
+    @accesses = current_application.accesses if current_user.is_admin?(current_application)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @settings }
@@ -27,7 +28,21 @@ class SettingsController < ApplicationController
       end
     end
   end
-  
+
+  def add_user
+
+    user = User.where(name: params[:application_access][:username]).exists? ? User.find_by(name: params[:application_access][:username]) : nil
+    respond_to do |format|
+      if !user.nil? && ApplicationAccess.create(application_id: current_application.id, user_id: user.id).errors.empty?
+        format.html { redirect_to application_settings_url(current_application), notice: "User '#{user.name}' added to #{current_application.name}." }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to application_settings_url(current_application), alert: "An error occured while adding '#{params[:application_access][:username]}' to #{current_application.name}." }
+        format.json { head :no_content, status: :unprocessable_entity }
+      end
+    end
+  end
+
   protected
   def init_variables
     @settings = current_application.setting

@@ -1,0 +1,29 @@
+<div id="accesses" class="row well">
+  <h4>Authorized Users</h4>
+
+  <div class="new_mail_form">
+    <%= form_for(ApplicationAccess.new(application_id: current_application), method: :put, url: add_user_application_settings_url(current_application), html: {class: "form-inline"}) do |f| %>
+        <div class="form-group">
+          <%= f.text_field :username, placeholder: "Enter the username to add to #{current_application.name}", size: 50 %>
+        </div>
+
+          <%= f.submit "Add", class: "btn btn-primary"%>
+
+    <% end %>
+  </div>
+
+  <table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+      <th>Username</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @accesses.each do |access| %>
+        <tr>
+          <td><%= access.user.name %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

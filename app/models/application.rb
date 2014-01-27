@@ -7,6 +7,10 @@ class Application
 
   before_create :generate_token
 
+  def accesses
+    ApplicationAccess.where(application_id: self.id)
+  end
+
   protected
 
   def generate_token

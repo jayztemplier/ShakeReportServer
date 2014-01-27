@@ -19,6 +19,7 @@ ShakeReport::Application.routes.draw do
 
     resources :settings, only: [:index] do
       put :update_jira
+      put :add_user, on: :collection
     end
   end
 
