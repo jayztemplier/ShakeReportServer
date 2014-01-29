@@ -11,7 +11,7 @@
 			<p>List of report:<p>
 				<ul>
 				<% @reports.each do |report| %>
-				<li><%= report.title %>: <%= link_to report_url(report), report %></li>
+				<li><%= report.title %>: <%= link_to report.title, application_report_url(report.application, report) %></li>
 				<% end %>
 			</ul>
 			

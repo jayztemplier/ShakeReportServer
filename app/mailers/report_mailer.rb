@@ -4,6 +4,6 @@ class ReportMailer < ActionMailer::Base
   def daily_summary(emails, reports)
     @reports = reports
     @date_string = Date.today.to_formatted_s(:long)
-    mail(bcc: emails, subject: "[ShakeReport] Daily report - #{@date_string}")
+    mail(to: "no-reply@shakereport.com" ,bcc: emails, subject: "[ShakeReport] Daily report - #{@date_string}")
   end
 end
