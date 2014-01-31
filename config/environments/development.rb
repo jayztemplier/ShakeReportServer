@@ -32,8 +32,12 @@ ShakeReport::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
-  
-  # paperclip configuration
+
+  #auth
+  ENV['GITHUB_KEY'] = "fe3874deb84a3d6a85f1"
+  ENV['GITHUB_SECRET'] = "5cd6de68980a8d3d0a4c7161310ff8089ff1c916"
+
+          # paperclip configuration
   if ENV['AWS_BUCKET'] && ENV['AWS_ACCESS_KEY_ID'] && ENV['AWS_SECRET_ACCESS_KEY']
     config.paperclip_defaults = {
       :storage => :s3,

@@ -1,6 +1,11 @@
 class ReportMailer < ActionMailer::Base
   default from: "no-reply@shakereport.com"
-  
+
+  def new_report_create(report)
+    @report = report
+
+  end
+
   def daily_summary(emails, reports)
     @reports = reports
     @date_string = Date.today.to_formatted_s(:long)

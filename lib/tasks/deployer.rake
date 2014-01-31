@@ -1,16 +1,11 @@
 namespace :heroku do
   desc "Setup heroku application"
-  task :setup, [:app, :username, :password] => [:environment] do |t, args|
+  task :setup, [:app] => [:environment] do |t, args|
     app = args[:app]
-    remote = "git@heroku.com:#{app}.git"
     puts "---------------SR REPORT -----------------"
-    
-    puts "Setting up #{app} heroku app with username #{args[:username]}"
-    system "heroku addons:add mongohq --app #{app}"    
+    system "heroku addons:add mongohq --app #{app}"
     system "heroku addons:add scheduler --app #{app}"
     system "heroku addons:add sendgrid:starter --app #{app}"
-    system "heroku config:set SR_USERNAME=#{args[:username]} --app #{app}"
-    system "heroku config:set SR_PASSWORD=#{args[:password]} --app #{app}"
     puts "---------------- DONE -------------------"
   end
   

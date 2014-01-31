@@ -1,6 +1,6 @@
 <h1>Applications</h1>
 
-<% if current_user.is_super_admin %>
+<% if current_user.can_create_application? %>
     <div class="new_mail_form">
       <%= simple_form_for(Application.new, html: {class: "form-inline"}) do |f| %>
           <%= f.error_notification %>

@@ -27,6 +27,10 @@ class User
     @applications ||= Application.in(id: application_ids)
   end
 
+  def can_create_application?
+    true
+  end
+
   def is_admin?(application)
     access = ApplicationAccess.find_by(user_id: self.id, application_id: application.id)
     (!access.nil? && access.role == ApplicationAccess::ROLE[:admin])

@@ -6,7 +6,7 @@ class ApplicationsController < ApplicationController
   end
 
   def create
-    if current_user.is_super_admin
+    if current_user.can_create_application?
       application = Application.new(params[:application])
       if application.save
         ApplicationAccess.create!(application_id: application.id, user_id: current_user.id, role: ApplicationAccess::ROLE[:admin])
