@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<h1>You received a new report!</h1>
+
+<h4>Title: </h4>
+<p><%= @report.title %></p>
+
+<h4>Message: </h4>
+<p><%= @report.message %></p>
+
+<p>
+<%= link_to "Go to report webpage", application_report_url(@report.application, @report) %>
+</p>
+
+<p>Thanks for using Shake Report and have a great day!</p>
+</body>
+</html>

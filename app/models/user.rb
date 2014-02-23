@@ -7,7 +7,13 @@ class User
   field :is_super_admin, type: Boolean
 
   def self.from_omniauth(auth)
-    where(auth.slice("provider", "uid")).first || create_from_omniauth(auth)
+    u = where(auth.slice("provider", "uid")).first
+    if u
+      u.update_from_omniauth(auth)
+      u
+    else
+      create_from_omniauth(auth)
+    end
   end
 
   def self.create_from_omniauth(auth)
@@ -15,8 +21,12 @@ class User
       user.provider = auth["provider"]
       user.uid = auth["uid"]
       user.name = auth["info"]["nickname"]
-      #user.email = auth["info"]["email"]
+      user.email = auth["info"]["email"]
     end
+  end
+
+  def update_from_omniauth(auth)
+    self.update_attributes(name: auth["info"]["nickname"], email: auth["info"]["email"])
   end
 
   def application_ids

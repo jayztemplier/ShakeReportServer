@@ -1,0 +1,13 @@
+You received a new report!
+===============================================
+
+Title:
+<%= @report.title %>
+
+Message:
+<%= @report.message %>
+
+<%= link_to "Go to report webpage", application_report_url(@report.application, @report) %>
+
+
+Thanks for using Shake Report and have a great day!

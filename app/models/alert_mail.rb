@@ -9,7 +9,8 @@ class AlertMail
     applications.each do |app|
       emails = []
       app.users.each { |u| emails << u.email unless u.email.nil?}
-      ReportMailer.daily_summary(emails, app.reports.today).deliver unless emails.empty?
+      reports = app.reports.today
+      ReportMailer.daily_summary(emails, reports).deliver if !emails.empty? && !reports.empty?
     end
   end
 end

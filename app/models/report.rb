@@ -3,10 +3,11 @@ class Report
   include Mongoid::Timestamps
   include Mongoid::Paperclip
   include Mongoid::Commentable
-  
+
 
   default_scope order_by(:created_at => :desc)
-  
+  after_create :after_create_hook
+
   STATUS = {new: 0, available_on_next_build: 1 ,ready_to_test: 2, archived: 3}
   field :title, type: String
   field :message, type: String
@@ -45,7 +46,13 @@ class Report
     m = m + "More info there: #{Rails.application.routes.url_helpers.report_url(self, host: host)}\n"
     m = m + "Created with Shake Report."
   end
-  
+
+  def after_create_hook
+    emails = []
+    self.application.users.each { |u| emails << u.email unless u.email.nil?}
+    ReportMailer.new_report_created(emails, self).deliver if !emails.empty?
+  end
+
   protected
   def has_one_attribute_set
     if title.nil? && message.nil? && device_model.nil? && os_version.nil? && screenshot.nil? && logs.nil? && crash_logs.nil? && dumped_view.nil?
