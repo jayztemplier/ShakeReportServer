@@ -38,7 +38,7 @@ class User
   end
 
   def can_create_application?
-    true
+    is_super_admin
   end
 
   def is_admin?(application)
