@@ -1,42 +1,39 @@
-<p id="notice"><%= notice %></p>
 
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= @report.title %></h3>
+  </div>
+  <div class="panel-body">
+    <p>
+      <strong>Status:</strong>
+      <span class="label label-info">
+      <% if status_title(@report.status + 1) %>
+        <%= status_title(@report.status) %></span> Mark as
+        <%= link_to status_title(@report.status + 1), application_report_update_status_path(current_application, @report), method: :put %> ?
+      <% end %>
+    </p>
+    <p>
+      <strong>Fix version:</strong>
+      <%= @report.fix_version || "n/a" %>
+    </p>
+    <p>
+      <strong>Device:</strong>
+      <%= @report.device_model || "n/a" %>
+    </p>
 
-<% if status_title(@report.status + 1) %>
-<span class="pull-right status_box">
-	<p>Update status</p>
-	<%= link_to status_title(@report.status + 1), application_report_update_status_path(current_application, @report), method: :put, class: "btn btn-success btn-mini"%>
-</span>
-<% end %>
+    <p>
+      <strong>OS:</strong>
+      <%= @report.os_version || "n/a" %>
+    </p>
 
-<div class="row report_header">
-	<span class="label label-info"><%=status_title(@report.status)%></span> 
-	<h3><%= @report.title %></h3>  
-	<% if @report.status > Report::STATUS[:available_on_next_build]%>
-	<p class="fix_version">
-		Fix version: <%= @report.fix_version || "N/A" %>
-	</p>
-	<% end %>
+    <p>
+      <strong>Description:</strong>
+      <%= @report.message %>
+    </p>
+
+  </div>
 </div>
 
-
-
-<div class="row">
-	<div class="col-xs-9">
-		<p class="well message">
-			<%= @report.message %>
-		</p>
-	</div>
-	<div class="col-xs-3for system_info">
-		<p>
-			<strong>Device:</strong>
-			<%= @report.device_model || "n/a" %>
-		</p>
-		<p>
-			<strong>OS:</strong>
-			<%= @report.os_version || "n/a" %>
-		</p>
-	</div>
-</div>
 
 <ul id="myTab" class="nav nav-pills">
   <% if @report.screen_capture_file_name %>
