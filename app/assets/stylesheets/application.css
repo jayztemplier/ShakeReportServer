@@ -16,3 +16,20 @@ div#content {
     margin-top: 50px;
 
 }
+.navbar-inverse {
+    background-color: #2167A3;
+    border-color: #080808;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #E2E0E0;
+}
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus {
+    background-color: #2960A7;
+    color: #fff;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #E2E0E0;
+}
