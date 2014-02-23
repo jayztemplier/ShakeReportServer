@@ -40,10 +40,10 @@
 
 <ul id="myTab" class="nav nav-tabs">
   <% if @report.screen_capture_file_name %>
-    <li class="active"><a href="#video" data-toggle="tab">Video</a></li>
+    <li><a href="#video" data-toggle="tab">Video</a></li>
     <li><a href="#screenshot" data-toggle="tab">Screenshot</a></li>
   <% else %>
-    <li class="active"><a href="#screenshot" data-toggle="tab">Screenshot</a></li>
+    <li><a href="#screenshot" data-toggle="tab">Screenshot</a></li>
   <% end %>
   <li><a href="#dumped-view" data-toggle="tab">Dumped View</a></li>
   <li><a href="#logs" data-toggle="tab">Logs</a></li>
@@ -102,6 +102,6 @@
 
 <script>
   $(function () {
-    $('#myTab a:first').tab('show');
+      $('#myTab a:first').tab('show');
   })
 </script>
