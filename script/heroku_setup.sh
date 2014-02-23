@@ -9,6 +9,7 @@ else
     heroku addons:add scheduler --app $1
     heroku addons:add sendgrid:starter --app $1
 
+    heroku config:set SR_HOST=$1.herokuapp.com --app $1
 
     if [ -z $2 ]; then
         echo "------> Please provide your github application id"
