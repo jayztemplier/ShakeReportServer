@@ -43,7 +43,7 @@ class ReportsController < ApplicationController
     
     respond_to do |format|
       if new_status != @report.status && @report.update_attributes(status: new_status)
-        format.html { redirect_to @report, notice: 'Report was successfully updated.' }
+        format.html { redirect_to application_report_url(@report.application, @report), notice: 'Report was successfully updated.' }
         format.json { head :no_content }
       else
         @show_jira = Setting.get_settings.jira_valid?
