@@ -1,6 +1,13 @@
-
 <div id="reports">
-  <h1><%= @status.to_s.gsub('_', ' ').capitalize %> reports</h1>
+  <h1>Reports</h1>
+
+  <ul class="nav nav-pills nav-justified reports-nav">
+    <% Report::STATUS.each_key do |status| %>
+        <li class="<%= "active" if @status == status %>">
+            <%= link_to status.to_s.gsub('_', ' ').capitalize, application_reports_url(current_application, scope: status)  %>
+        </li>
+    <% end %>
+  </ul>
 
   <table class="table table-bordered table-hover">
   	<thead>
