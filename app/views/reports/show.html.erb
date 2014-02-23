@@ -91,7 +91,7 @@
   <div class="well comment level_<%= comment.level %>" style="margin-left: <%= comment.level * 20 %>px">
     <p class="author"> <%= comment.author %> <%= comment.level > 1 ? "replied:" : "commented:" %></p>
     <p class="content"> <%= comment.text %> </p>
-    <%= link_to "Reply", new_application_report_comment_path(current_application, :report_id => @report.id.to_s, :parent => comment.id.to_s), class: "reply" %>
+    <!--<%= link_to "Reply", new_application_report_comment_path(current_application, :report_id => @report.id.to_s, :parent => comment.id.to_s), class: "reply" %>-->
   </div>
   <% end %>
   <div id="new_comment">

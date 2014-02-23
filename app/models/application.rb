@@ -2,7 +2,7 @@ class Application
   include Mongoid::Document
   field :name, type: String
   field :token, type: String
-  embeds_many :reports
+  has_many :reports
   embeds_one :setting, autobuild: true
 
   before_create :generate_token
