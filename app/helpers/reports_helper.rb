@@ -1,7 +1,7 @@
 module ReportsHelper
 
   def screenshot_tag(report)
-  	raw "<img src=\"data:image/gif;base64,#{report.screenshot}\">"
+  	raw "<img class=\"screenshot\" src=\"data:image/gif;base64,#{report.screenshot}\">"
   end
   
   def status_title(status_code)

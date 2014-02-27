@@ -9,7 +9,7 @@ ShakeReport::Application.routes.draw do
   match 'authentication', to: 'sessions#index', as: 'authentication'
 
   resources :applications, only: [:index , :create] do
-
+    resources :builds, only: [:index, :create]
     resources :reports, only: [:index, :show] do
       post :create_jira_issue
       put :update_status

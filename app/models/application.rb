@@ -3,6 +3,7 @@ class Application
   field :name, type: String
   field :token, type: String
   has_many :reports
+  has_many :builds
   embeds_one :setting, autobuild: true
 
   before_create :generate_token
@@ -14,6 +15,12 @@ class Application
   def users
     user_ids = accesses.map(&:user_id)
     User.in(id: user_ids)
+  end
+
+  def email_list
+    emails = []
+    self.users.each { |u| emails << u.email unless u.email.nil?}
+    emails
   end
 
   protected

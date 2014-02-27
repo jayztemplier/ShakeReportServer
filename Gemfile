@@ -13,9 +13,16 @@ gem 'jiraSOAP'
 gem 'curb'
 gem 'httparty'
 gem 'omniauth-github'
+#gem "ipa", "~> 0.1.3"
+gem "ipa_reader", "~> 0.7.1"
+
 
 # Gems used only for assets and not required
 # in production environments by default.
+
+group :development do
+  gem 'pry'
+end
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

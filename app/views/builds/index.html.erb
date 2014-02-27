@@ -1,0 +1,31 @@
+<div id="reports">
+  <h1>Builds</h1>
+
+  <div id="new_build">
+  <%= form_for @build, :url => application_builds_url(@build.application), :html => { :multipart => true, class: "form-inline", role: "form"} do |form| %>
+        <div class="form-group">
+          <%= form.file_field :ipa%>
+        </div>
+        <%= form.submit :upload, class: "btn btn-primary"%>
+  <% end %>
+  </div>
+
+  <div>
+    <table class="table table-bordered table-hover">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Link</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @builds.each do |build| %>
+          <tr>
+            <td><%= build.title || "No title" %></td>
+            <td><%= link_to 'Install', build.itunes_url, class: "btn btn-primary" %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

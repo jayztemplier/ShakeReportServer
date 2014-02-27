@@ -48,8 +48,7 @@ class Report
   end
 
   def after_create_hook
-    emails = []
-    self.application.users.each { |u| emails << u.email unless u.email.nil?}
+    emails = self.application.email_list
     ReportMailer.new_report_created(emails, self).deliver if !emails.empty?
   end
 
