@@ -4,9 +4,29 @@
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
-<h1>New build available!</h1>
+<h1>New <%= @build.title %> build available!</h1>
 
 <h4><%= link_to "Install", @build.itunes_url %></h4>
+<p>Please make sure to click on install from an iOS device.</p>
+
+<p>
+  List of reports fixed in the build:
+</p>
+<p>
+  <% if @reports && @reports.size %>
+    <p>List of report:<p>
+    <ul>
+      <% @reports.each do |report| %>
+          <li><%= report.title %>: <%= link_to report.title, application_report_url(report.application, report) %></li>
+      <% end %>
+    </ul>
+
+<% else %>
+    No new report
+
+<% end%>
+</p>
+
 
 <p>Thanks for using Shake Report and have a great day!</p>
 </body>
