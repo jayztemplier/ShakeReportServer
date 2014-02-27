@@ -5,7 +5,7 @@ class Report
   include Mongoid::Commentable
 
 
-  default_scope order_by(:created_at => :desc)
+  default_scope order_by(:updated_at => :desc)
   after_create :after_create_hook
 
   STATUS = {new: 0, available_on_next_build: 1 ,ready_to_test: 2, archived: 3}
@@ -20,9 +20,8 @@ class Report
   field :status, type: Integer, default: STATUS[:new]
   field :jira_ticket, type: String
 
-  field :fix_version, type: String
-
   belongs_to :application
+  belongs_to :build
 
   has_mongoid_attached_file :screen_capture
   

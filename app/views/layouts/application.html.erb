@@ -69,6 +69,7 @@
                       <% end %>
                     </ul>
                   </li>
+                  <li><%= link_to "Builds", application_builds_url(current_application)  %></li>
                   <li><%= link_to "Settings", application_settings_url(current_application)  %></li>
               <% end %>
               <li>
@@ -80,13 +81,7 @@
               </li>
             </ul>
             <% if current_application %>
-
-              <%= form_tag(new_build_application_reports_path(current_application), method: :put, class: "navbar-form navbar-right") do %>
-                    <div class="form-group">
-                      <%= text_field_tag 'version', params[:version], class: "form-control", placeholder: "version number" %>
-                    </div>
-                    <%= submit_tag 'New Build', class: "btn btn-warning", confirm: "When you create a new build, all the reports in 'available in the next build' will be in 'ready to be tested'. Are you sure you want to continue?" %>
-                <% end %>
+              <%= render "builds/new_build" %>
             <% end %>
           </nav>
         </div>

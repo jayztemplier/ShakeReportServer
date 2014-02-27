@@ -14,6 +14,7 @@ class Build
   has_mongoid_attached_file :manifest, path: "/#{Rails.env}/:class/:id/manifest.plist"
 
   belongs_to :application
+  has_many :reports
 
   def itunes_url
     if self.manifest
@@ -24,15 +25,22 @@ class Build
   end
 
   def before_create_hook
-    # do nothing yet, will initiate the email to send
     ipa_file = IpaReader::IpaFile.new(self.ipa.queued_for_write[:original].path)
     self.title = ipa_file.name + ' - v' + ipa_file.version
     generate_manifest!(ipa_file)
   end
 
   def after_create_hook
+    update_reports
     emails = self.application.email_list
     BuildMailer.new_build_available(emails, self).deliver if !emails.empty?
+  end
+
+  def update_reports
+    attributes = {status: Report::STATUS[:ready_to_test]}
+    attributes[:build_id] = self.id
+    reports = self.application.reports.available_on_next_build
+    reports.update_all(attributes) if reports.count > 0
   end
 
   def generate_manifest!(ipa_reader)

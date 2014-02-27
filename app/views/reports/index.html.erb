@@ -26,7 +26,7 @@
   		    <td><%= report.title || "No title" %></td>
   			<td><%= report.created_at ? report.created_at.to_formatted_s(:short) : "N/A" %></td>
   		  <% if Report::STATUS[@status] > Report::STATUS[:available_on_next_build]%>
-			<td><%= report.fix_version || "N/A" %></td>
+			<td><%= report.build.nil? ? "n/a" : link_to(report.build.title, report.build.itunes_url) %></td>
   		  <% end %>
   		    <td><%= link_to 'Show', application_report_path(current_application, report), class: "btn btn-primary" %></td>
   		  </tr>

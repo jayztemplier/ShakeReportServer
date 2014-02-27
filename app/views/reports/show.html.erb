@@ -13,8 +13,8 @@
       <% end %>
     </p>
     <p>
-      <strong>Fix version:</strong>
-      <%= @report.fix_version || "n/a" %>
+      <strong>Fix in build:</strong>
+      <%= @report.build.nil? ? "n/a" : link_to(@report.build.title, @report.build.itunes_url)  %>
     </p>
     <p>
       <strong>Device:</strong>

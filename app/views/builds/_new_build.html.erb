@@ -1,0 +1,6 @@
+<%= form_for @build || current_application.builds.new, :url => application_builds_url(current_application), :html => { :multipart => true, class: "navbar-form navbar-right new_build", role: "form"} do |form| %>
+    <div class="form-group">
+      <%= form.file_field :ipa%>
+    </div>
+    <%= form.submit :upload, class: "btn btn-warning"%>
+<% end %>
