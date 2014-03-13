@@ -8,7 +8,7 @@ class Invitation
   field :email, type: String
   field :hash, type: String
   belongs_to :application
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true
   validates :hash, presence: true
   validates :application_id, presence: true
 
