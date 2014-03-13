@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
     if current_user
       true
     else
+      session[:redirect_to] = request.fullpath
       redirect_to authentication_url
     end
   end

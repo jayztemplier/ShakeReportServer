@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>You are invited to join <%= @invitation.application.name%> </h1>
+
+    <p>
+		Please follow the link below to have access to the application <%= @invitation.application.name%>: <br/>
+        <%= link_to "Join", invitations_url(token: @token) %>
+    </p>
+
+    <p>Thanks for using Shake Report and have a great day!</p>
+  </body>
+</html>

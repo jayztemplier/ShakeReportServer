@@ -1,13 +1,14 @@
 <div id="accesses" class="row well">
-  <h4>Authorized Users</h4>
+
+  <h4>Users</h4>
 
   <div class="new_mail_form">
-    <%= form_for(ApplicationAccess.new(application_id: current_application), method: :put, url: add_user_application_settings_url(current_application), html: {class: "form-inline"}) do |f| %>
+    <%= form_for(Invitation.new(application_id: current_application), method: :put, url: invite_application_settings_url(current_application), html: {class: "form-inline"}) do |f| %>
         <div class="form-group">
-          <%= f.text_field :username, placeholder: "Enter the username to add to #{current_application.name}", size: 50 %>
+          <%= f.text_field :email, placeholder: "Email of the person you want to invite", size: 50 %>
         </div>
 
-          <%= f.submit "Add", class: "btn btn-primary"%>
+        <%= f.submit "Invite", class: "btn btn-primary"%>
 
     <% end %>
   </div>
@@ -15,7 +16,25 @@
   <table class="table table-bordered table-hover">
     <thead>
     <tr>
-      <th>Username</th>
+      <th>Pending Invitations</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @invitations.each do |invite| %>
+        <tr>
+          <td><%= invite.email %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+
+
+
+  <table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+      <th>Authorized Users</th>
     </tr>
     </thead>
     <tbody>

@@ -8,6 +8,8 @@ ShakeReport::Application.routes.draw do
   match 'signout', to: 'sessions#destroy', as: 'signout'
   match 'authentication', to: 'sessions#index', as: 'authentication'
 
+  resources :invitations, only: [:index]
+
   resources :applications, only: [:index , :create] do
     resources :builds, only: [:index, :create]
     resources :reports, only: [:index, :show] do
@@ -20,6 +22,7 @@ ShakeReport::Application.routes.draw do
     resources :settings, only: [:index] do
       put :update_jira
       put :add_user, on: :collection
+      put :invite, on: :collection
     end
   end
 

@@ -1,0 +1,8 @@
+You are invited to join <%= @invitation.application.name%>
+===============================================
+
+Please follow the link below to have access to the application <%= @invitation.application.name%>:
+<%= link_to "Join", invitations_url(token: @token) %>
+
+
+Thanks for using Shake Report and have a great day!

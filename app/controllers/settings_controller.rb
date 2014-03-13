@@ -6,6 +6,7 @@ class SettingsController < ApplicationController
   # GET /settings
   # GET /settings.json
   def index
+    @invitations = current_application.invitations if current_user.is_admin?(current_application)
     @accesses = current_application.accesses if current_user.is_admin?(current_application)
     respond_to do |format|
       format.html # index.html.erb
@@ -30,7 +31,6 @@ class SettingsController < ApplicationController
   end
 
   def add_user
-
     user = User.where(name: params[:application_access][:username]).exists? ? User.find_by(name: params[:application_access][:username]) : nil
     respond_to do |format|
       if !user.nil? && ApplicationAccess.create(application_id: current_application.id, user_id: user.id).errors.empty?
@@ -38,6 +38,20 @@ class SettingsController < ApplicationController
         format.json { head :no_content }
       else
         format.html { redirect_to application_settings_url(current_application), alert: "An error occured while adding '#{params[:application_access][:username]}' to #{current_application.name}." }
+        format.json { head :no_content, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def invite
+    email = params[:invitation][:email]
+    invitation = Invitation.new(email: email, application: current_application)
+    respond_to do |format|
+      if invitation.save
+        format.html { redirect_to application_settings_url(current_application), notice: "Invitation sent to #{invitation.email}" }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to application_settings_url(current_application), alert: "An error occured while inviting #{invitation.email}" }
         format.json { head :no_content, status: :unprocessable_entity }
       end
     end

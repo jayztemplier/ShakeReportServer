@@ -4,6 +4,7 @@ class Application
   field :token, type: String
   has_many :reports
   has_many :builds
+  has_many :invitations
   embeds_one :setting, autobuild: true
 
   before_create :generate_token

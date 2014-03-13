@@ -12,7 +12,9 @@ class SessionsController < ApplicationController
   def create
     user = User.from_omniauth(env["omniauth.auth"])
     session[:user_id] = user.id
-    redirect_to root_url, notice: "Signed in!"
+    redirect_url = session[:redirect_to] || root_url
+    session[:redirect_to] = nil
+    redirect_to redirect_url, notice: "Signed in!"
   end
 
   def destroy
