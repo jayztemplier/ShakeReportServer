@@ -11,6 +11,19 @@ The Shake Reporter backend has been written in Ruby, using Ruby on Rails. By def
 
 #Shake Report?
 Shake Reporter is a framework that allows you to easily get bug reports from users of your mobile application. When you see something wrong, shake the device, and report the issue with a custom message. You can either receive reports by email or configure a shake report backend which will collect and classify the reports.
+
+
+# Features
+* Support of multiple application
+* Authentication with Github
+* Roles: admin, user, super admin
+* List of the reports sent from the devices
+* Possibility to archive the report
+* Support Jira integration -- in progress
+* Save video recording on AWS3
+* Distribution of iOS Over Tthe Air
+
+ 
 # Requirement
 
 * MongoDB
@@ -51,13 +64,6 @@ Deploy!
 Check that it's running by visiting `http://localhost:3000`
 A prompt will ask you your username and password. Use the logins you just created.
 
-# Features
-
-* List of the reports sent from the devices
-* Possibility to archive the report
-* Support Jira integration
-* Save video recording on AWS3
-
 # Use AWS3 storage
 ## Local
 Simply run this command:
@@ -66,7 +72,9 @@ Simply run this command:
 Almost the same command:
 `bundle exec rake heroku:setup_aws[bucket_name,key,secret_key]`
 
-# Activate Jira integration
+
+# Activate Jira integration (Work still in progress.)
+
 ## Local
 Setup your environement with some Jira information:
 `bundle exec rake local:setup_jira[url_to_jira,username,password]`
