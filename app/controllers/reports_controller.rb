@@ -81,25 +81,25 @@ class ReportsController < ApplicationController
         begin
           @jira_url = Jira::Client.default_client.create_issue_for_report(@report, settings.get(:jira_project_key), settings.get(:jira_issue_id))
           if @report.update_attributes({jira_ticket: @jira_url}) && @report.jira_ticket == @jira_url
-            format.html { redirect_to @report, notice: "Jira issue successfully created: #{@jira_url}"}
+            format.html { redirect_to application_report_url(current_application, @report), notice: "Jira issue successfully created: #{@jira_url}"}
             format.json { render json: @report, status: :created }
           else
             message = "An error occured during the linking of the report with the Jira ticket: #{@jira_url}"
-            format.html { redirect_to @report, alert: message }
+            format.html { redirect_to application_report_url(current_application, @report), alert: message }
             format.json { render json: {error: message}, status: :unprocessable_entity }
           end
         rescue Jira::Error::NotConnectedError
           message = 'An error occured, Jira issue not created. Please check that you configuration is correct.'
-          format.html { redirect_to @report, alert: message }
+          format.html { redirect_to application_report_url(current_application, @report), alert: message }
           format.json { render json: {error: message}, status: :unprocessable_entity }
         rescue Exception => e   
           message = "An error occured. #{e}"
-          format.html { redirect_to @report, alert: message }
+          format.html { redirect_to application_report_url(current_application, @report), alert: message }
           format.json { render json: {error: message}, status: :unprocessable_entity }          
         end
       else  
         message = 'Jira not configured.'
-        format.html { redirect_to @report, alert: message }
+        format.html { redirect_to application_report_url(current_application, @report), alert: message }
         format.json { render json: {error: message}, status: :method_not_allowed }
       end
     end
