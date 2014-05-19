@@ -21,7 +21,7 @@ class SettingsController < ApplicationController
     @settings.set(:jira_issue_id, issue_id)
     respond_to do |format|
       if @settings.save
-        format.html { redirect_to settings_url, notice: 'Settings was successfully updated.' }
+        format.html { redirect_to application_settings_url(current_application), notice: 'Settings was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "index" }
