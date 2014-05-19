@@ -42,7 +42,7 @@ class Report
     m = m + message + "\n"
     m = m + "--------------------------------------------------------------\n"
     m = m + "Video: #{self.screen_capture.url}\n" if self.screen_capture_file_name
-    m = m + "More info there: #{Rails.application.routes.url_helpers.report_url(self, host: host)}\n"
+    m = m + "More info there: #{Rails.application.routes.url_helpers.application_report_url(self.application, self, host: host)}\n"
     m = m + "Created with Shake Report."
   end
 
