@@ -16,6 +16,7 @@ class SettingsController < ApplicationController
 
   def update_jira
     project_key = params[:project]
+    puts params
     issue_id = params["issue_#{project_key}"]
     @settings.set(:jira_project_key, project_key)
     @settings.set(:jira_issue_id, issue_id)
