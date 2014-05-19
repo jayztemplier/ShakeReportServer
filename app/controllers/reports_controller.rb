@@ -74,7 +74,7 @@ class ReportsController < ApplicationController
 
   def create_jira_issue
     @report = current_application.reports.find(params[:report_id])
-    settings = Setting.get_settings
+    settings = current_application.setting
     client = Jira::Client.default_client
     respond_to do |format|
       if client
