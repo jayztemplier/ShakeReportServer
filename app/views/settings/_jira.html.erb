@@ -6,7 +6,7 @@
 		Host: <%= link_to Jira::Client.default_client.host, Jira::Client.default_client.host, target: "blank"%> <br/>
 		User: <%= Jira::Client.default_client.user %>
 	</p>
-		<%= form_tag(application_setting_update_jira(current_application, @settings), method: "put", class: "form-horizontal", role: "form") do %>
+		<%= form_tag(application_setting_update_jira_url(current_application, @settings), method: "put", class: "form-horizontal", role: "form") do %>
 			<div class="form-group">
 			    <label class="col-sm-2 control-label">Project</label>
 			    <div class="col-sm-3">
