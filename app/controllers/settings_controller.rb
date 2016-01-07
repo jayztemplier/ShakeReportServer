@@ -2,7 +2,7 @@ class SettingsController < ApplicationController
 
   before_filter :ensure_application
   before_filter :init_variables
-  
+
   # GET /settings
   # GET /settings.json
   def index
@@ -63,10 +63,10 @@ class SettingsController < ApplicationController
     @settings = current_application.setting
     get_jira_project
   end
-  
+
   def get_jira_project
     @jira_project_key = @settings.get(:jira_project_key)
     @jira_issue_id = @settings.get(:jira_issue_id)
-    @jira_projects = $jira_client.projects if $jira_client
+    @jira_projects = $jira_client.projects if Jira::Client.enabled?
   end
 end
