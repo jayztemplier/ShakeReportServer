@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.8'
 gem 'thin'
 
-gem "mongoid", "~> 3.0.0"
+gem "mongoid", "~> 3.1.0"
 gem 'simple_form'
 gem 'newrelic_rpm'
 gem "mongoid-paperclip", :require => "mongoid_paperclip"
